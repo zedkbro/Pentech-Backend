@@ -1,7 +1,7 @@
 {
-  "name": "delta-website",
+  "name": "Pentech-website",
   "version": "1.0.0",
-  "description": "\"Offical Website for Meyla\"",
+  "description": "\"Offical Website for Pentech\"",
   "main": "index.js",
   "start": "node src/index.js",
   "scripts": {
