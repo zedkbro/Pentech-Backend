@@ -26,7 +26,10 @@ import whyChoose from "../controllers/admins/whyChooseController.js";
 
 /** ----------- Latest Added  --------------------------*/
 import educationBranch from "../controllers/admins/educationBranchController.js"
-import educationProgram from "../controllers/admins/educationProgramController.js";
+import educationProgram from "../controllers/admins/educationProgramController.js"
+import financialPerformance from "../controllers/admins/financialPerformanceController.js"
+import ICTService from "../controllers/admins/ICTServiceController.js"
+import investmentOpportunity from "../controllers/admins/investmentOpportunityController.js";
 
 const router = express.Router();
 
@@ -59,7 +62,10 @@ router.get("/services", service.findAll.bind(service))
 
       /** ----------- Latest Added  --------------------------*/
       .get("/education-branches", educationBranch.getAll.bind(educationBranch))
-      .get("/education-programs", educationProgram.getAll.bind(educationProgram));
+      .get("/education-programs", educationProgram.getAll.bind(educationProgram))
+      .get("/finance-performances", financialPerformance.getAll.bind(financialPerformance))
+      .get("/ict-services", ICTService.getAll.bind(ICTService))
+      .get("/investment-opportunities", investmentOpportunity.getAll.bind(investmentOpportunity));
 
 router.get("/count-products", product.countDocuments.bind(product))
       .get("/count-services", service.countDocuments.bind(service));
@@ -288,6 +294,30 @@ router.route("/education-programs/:id")
       .delete(educationProgram.moveToTrash.bind(educationProgram));
 router.delete("/education-programs/destroy/:id", educationProgram.deleteById.bind(educationProgram));
 router.patch("/education-programs/backup/:id", educationProgram.backupFromTrash.bind(educationProgram));
+
+router.post("/financial-performances", financialPerformance.create.bind(financialPerformance));
+router.route("/financial-performances/:id")
+      .get(financialPerformance.getById.bind(financialPerformance))
+      .patch(financialPerformance.updateById.bind(financialPerformance))
+      .delete(financialPerformance.moveToTrash.bind(financialPerformance));
+router.delete("/financial-performances/destroy/:id", financialPerformance.deleteById.bind(financialPerformance));
+router.patch("/financial-performances/backup/:id", financialPerformance.backupFromTrash.bind(financialPerformance));
+
+router.post("/ict-services", ICTService.create.bind(ICTService));
+router.route("/ict-services/:id")
+      .get(ICTService.getById.bind(ICTService))
+      .patch(ICTService.updateById.bind(ICTService))
+      .delete(ICTService.moveToTrash.bind(ICTService));
+router.delete("/ict-services/destroy/:id", ICTService.deleteById.bind(ICTService));
+router.patch("/ict-services/backup/:id", ICTService.backupFromTrash.bind(ICTService));
+
+router.post("/investment-opportunities", investmentOpportunity.create.bind(investmentOpportunity));
+router.route("/investment-opportunities/:id")
+      .get(investmentOpportunity.getById.bind(investmentOpportunity))
+      .patch(investmentOpportunity.updateById.bind(investmentOpportunity))
+      .delete(investmentOpportunity.moveToTrash.bind(investmentOpportunity));
+router.delete("/investment-opportunities/destroy/:id", investmentOpportunity.deleteById.bind(investmentOpportunity));
+router.patch("/investment-opportunities/backup/:id", investmentOpportunity.backupFromTrash.bind(investmentOpportunity));
 
 
 export default router;
