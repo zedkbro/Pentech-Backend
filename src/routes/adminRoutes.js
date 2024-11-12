@@ -24,6 +24,10 @@ import termsAndConditions from "../controllers/admins/termsAndConditionsControll
 import statistics from "../controllers/admins/statisticsController.js";
 import whyChoose from "../controllers/admins/whyChooseController.js";
 
+/** ----------- Latest Added  --------------------------*/
+import educationBranch from "../controllers/admins/educationBranchController.js"
+import educationProgram from "../controllers/admins/educationProgramController.js";
+
 const router = express.Router();
 
 router.post("/register", authController.registerAdmin)
@@ -51,7 +55,11 @@ router.get("/services", service.findAll.bind(service))
       .get("/loan-calculator", loanCalculator.getAll.bind(loanCalculator))
       .get("/terms-and-conditions", termsAndConditions.getAll.bind(termsAndConditions))
       .get("/statistics", statistics.getAll.bind(statistics))
-      .get("/why-choose", whyChoose.getAll.bind(whyChoose));
+      .get("/why-choose", whyChoose.getAll.bind(whyChoose))
+
+      /** ----------- Latest Added  --------------------------*/
+      .get("/education-branches", educationBranch.getAll.bind(educationBranch))
+      .get("/education-programs", educationProgram.getAll.bind(educationProgram));
 
 router.get("/count-products", product.countDocuments.bind(product))
       .get("/count-services", service.countDocuments.bind(service));
@@ -263,6 +271,23 @@ router.route("/why-choose/:id")
       .delete(whyChoose.moveToTrash.bind(whyChoose));
 router.delete("/why-choose/destroy/:id", whyChoose.deleteById.bind(whyChoose));
 router.patch("/why-choose/backup/:id", whyChoose.backupFromTrash.bind(whyChoose));
+
+      /** ----------- Latest Added  --------------------------*/
+router.post("/education-branches", educationBranch.create.bind(educationBranch));
+router.route("/education-branches/:id")
+      .get(educationBranch.getById.bind(educationBranch))
+      .patch(educationBranch.updateById.bind(educationBranch))
+      .delete(educationBranch.moveToTrash.bind(educationBranch));
+router.delete("/education-branches/destroy/:id", educationBranch.deleteById.bind(educationBranch));
+router.patch("/education-branches/backup/:id", educationBranch.backupFromTrash.bind(educationBranch));
+
+router.post("/education-programs", educationProgram.create.bind(educationProgram));
+router.route("/education-programs/:id")
+      .get(educationProgram.getById.bind(educationProgram))
+      .patch(educationProgram.updateById.bind(educationProgram))
+      .delete(educationProgram.moveToTrash.bind(educationProgram));
+router.delete("/education-programs/destroy/:id", educationProgram.deleteById.bind(educationProgram));
+router.patch("/education-programs/backup/:id", educationProgram.backupFromTrash.bind(educationProgram));
 
 
 export default router;

@@ -11,7 +11,6 @@ class EducationProgram extends BaseModel {}
         admissionInfo: { type: DataTypes.TEXT, allowNull: true, trim: true, defaultValue: null },
         academicCalendar: { type: DataTypes.TEXT, allowNull: true, trim: true, defaultValue: null },
         news: { type: DataTypes.TEXT, allowNull: true, trim: true, defaultValue: null },
-        academicCalendar: { type: DataTypes.TEXT, allowNull: true, trim: true, defaultValue: null },
         trash: { type: DataTypes.BOOLEAN, allowNull: false, trim: true, defaultValue: false }
     });
 
