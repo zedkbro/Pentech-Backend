@@ -29,7 +29,11 @@ import educationBranch from "../controllers/admins/educationBranchController.js"
 import educationProgram from "../controllers/admins/educationProgramController.js"
 import financialPerformance from "../controllers/admins/financialPerformanceController.js"
 import ICTService from "../controllers/admins/ICTServiceController.js"
-import investmentOpportunity from "../controllers/admins/investmentOpportunityController.js";
+import investmentOpportunity from "../controllers/admins/investmentOpportunityController.js"
+import investorFaqs from "../controllers/admins/investorFaqsController.js"
+import microfinanceService from "../controllers/admins/microfinanceServiceController.js"
+import printingPackaging from "../controllers/admins/printingPackagingController.js"
+import sector from "../controllers/admins/sectorController.js";
 
 const router = express.Router();
 
@@ -65,7 +69,11 @@ router.get("/services", service.findAll.bind(service))
       .get("/education-programs", educationProgram.getAll.bind(educationProgram))
       .get("/finance-performances", financialPerformance.getAll.bind(financialPerformance))
       .get("/ict-services", ICTService.getAll.bind(ICTService))
-      .get("/investment-opportunities", investmentOpportunity.getAll.bind(investmentOpportunity));
+      .get("/investment-opportunities", investmentOpportunity.getAll.bind(investmentOpportunity))
+      .get("/investor-faqs", investorFaqs.getAll.bind(investorFaqs))
+      .get("/microfinance-services", microfinanceService.getAll.bind(microfinanceService))
+      .get("/printing-packagings", printingPackaging.getAll.bind(printingPackaging))
+      .get("/sectors", sector.getAll.bind(sector));
 
 router.get("/count-products", product.countDocuments.bind(product))
       .get("/count-services", service.countDocuments.bind(service));
@@ -318,6 +326,38 @@ router.route("/investment-opportunities/:id")
       .delete(investmentOpportunity.moveToTrash.bind(investmentOpportunity));
 router.delete("/investment-opportunities/destroy/:id", investmentOpportunity.deleteById.bind(investmentOpportunity));
 router.patch("/investment-opportunities/backup/:id", investmentOpportunity.backupFromTrash.bind(investmentOpportunity));
+
+router.post("/investor-faqs", investorFaqs.create.bind(investorFaqs));
+router.route("/investor-faqs/:id")
+      .get(investorFaqs.getById.bind(investorFaqs))
+      .patch(investorFaqs.updateById.bind(investorFaqs))
+      .delete(investorFaqs.moveToTrash.bind(investorFaqs));
+router.delete("/investor-faqs/destroy/:id", investorFaqs.deleteById.bind(investorFaqs));
+router.patch("/investor-faqs/backup/:id", investorFaqs.backupFromTrash.bind(investorFaqs));
+
+router.post("/microfinance-services", microfinanceService.create.bind(microfinanceService));
+router.route("/microfinance-services/:id")
+      .get(microfinanceService.getById.bind(microfinanceService))
+      .patch(microfinanceService.updateById.bind(microfinanceService))
+      .delete(microfinanceService.moveToTrash.bind(microfinanceService));
+router.delete("/microfinance-services/destroy/:id", microfinanceService.deleteById.bind(microfinanceService));
+router.patch("/microfinance-services/backup/:id", microfinanceService.backupFromTrash.bind(microfinanceService));
+
+router.post("/printing-packagings", printingPackaging.create.bind(printingPackaging));
+router.route("/printing-packagings/:id")
+      .get(printingPackaging.getById.bind(printingPackaging))
+      .patch(printingPackaging.updateById.bind(printingPackaging))
+      .delete(printingPackaging.moveToTrash.bind(printingPackaging));
+router.delete("/printing-packagings/destroy/:id", printingPackaging.deleteById.bind(printingPackaging));
+router.patch("/printing-packagings/backup/:id", printingPackaging.backupFromTrash.bind(printingPackaging));
+
+router.post("/sectors", sector.create.bind(sector));
+router.route("/sectors/:id")
+      .get(sector.getById.bind(sector))
+      .patch(sector.updateById.bind(sector))
+      .delete(sector.moveToTrash.bind(sector));
+router.delete("/sectors/destroy/:id", sector.deleteById.bind(sector));
+router.patch("/sectors/backup/:id", sector.backupFromTrash.bind(sector));
 
 
 export default router;
