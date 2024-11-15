@@ -1,9 +1,9 @@
 import { DataTypes } from 'sequelize';
 import BaseModel from '../BaseModel.js';
 
-class InvestmentOpportunities extends BaseModel {}
+class InvestmentOpportunity extends BaseModel {}
 
-    InvestmentOpportunities.init({
+    InvestmentOpportunity.init({
         id: { type: DataTypes.UUID, defaultValue: DataTypes.UUIDV4, primaryKey: true, allowNull: false},
         opportunityTitle: { type: DataTypes.TEXT, allowNull: true, trim: true },
         description: { type: DataTypes.TEXT, allowNull: false, trim: true },
@@ -12,4 +12,4 @@ class InvestmentOpportunities extends BaseModel {}
         trash: { type: DataTypes.BOOLEAN, allowNull: false, trim: true, defaultValue: false }
     });
 
-export default InvestmentOpportunities;
+export default InvestmentOpportunity;

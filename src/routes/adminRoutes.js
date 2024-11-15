@@ -24,6 +24,17 @@ import termsAndConditions from "../controllers/admins/termsAndConditionsControll
 import statistics from "../controllers/admins/statisticsController.js";
 import whyChoose from "../controllers/admins/whyChooseController.js";
 
+/** ----------- Latest Added  --------------------------*/
+import educationBranch from "../controllers/admins/educationBranchController.js"
+import educationProgram from "../controllers/admins/educationProgramController.js"
+import financialPerformance from "../controllers/admins/financialPerformanceController.js"
+import ICTService from "../controllers/admins/ICTServiceController.js"
+import investmentOpportunity from "../controllers/admins/investmentOpportunityController.js"
+import investorFaqs from "../controllers/admins/investorFaqsController.js"
+import microfinanceService from "../controllers/admins/microfinanceServiceController.js"
+import printingPackaging from "../controllers/admins/printingPackagingController.js"
+import sector from "../controllers/admins/sectorController.js";
+
 const router = express.Router();
 
 router.post("/register", authController.registerAdmin)
@@ -51,7 +62,18 @@ router.get("/services", service.findAll.bind(service))
       .get("/loan-calculator", loanCalculator.getAll.bind(loanCalculator))
       .get("/terms-and-conditions", termsAndConditions.getAll.bind(termsAndConditions))
       .get("/statistics", statistics.getAll.bind(statistics))
-      .get("/why-choose", whyChoose.getAll.bind(whyChoose));
+      .get("/why-choose", whyChoose.getAll.bind(whyChoose))
+
+      /** ----------- Latest Added  --------------------------*/
+      .get("/education-branches", educationBranch.getAll.bind(educationBranch))
+      .get("/education-programs", educationProgram.getAll.bind(educationProgram))
+      .get("/finance-performances", financialPerformance.getAll.bind(financialPerformance))
+      .get("/ict-services", ICTService.getAll.bind(ICTService))
+      .get("/investment-opportunities", investmentOpportunity.getAll.bind(investmentOpportunity))
+      .get("/investor-faqs", investorFaqs.getAll.bind(investorFaqs))
+      .get("/microfinance-services", microfinanceService.getAll.bind(microfinanceService))
+      .get("/printing-packagings", printingPackaging.getAll.bind(printingPackaging))
+      .get("/sectors", sector.getAll.bind(sector));
 
 router.get("/count-products", product.countDocuments.bind(product))
       .get("/count-services", service.countDocuments.bind(service));
@@ -263,6 +285,79 @@ router.route("/why-choose/:id")
       .delete(whyChoose.moveToTrash.bind(whyChoose));
 router.delete("/why-choose/destroy/:id", whyChoose.deleteById.bind(whyChoose));
 router.patch("/why-choose/backup/:id", whyChoose.backupFromTrash.bind(whyChoose));
+
+      /** ----------- Latest Added  --------------------------*/
+router.post("/education-branches", educationBranch.create.bind(educationBranch));
+router.route("/education-branches/:id")
+      .get(educationBranch.getById.bind(educationBranch))
+      .patch(educationBranch.updateById.bind(educationBranch))
+      .delete(educationBranch.moveToTrash.bind(educationBranch));
+router.delete("/education-branches/destroy/:id", educationBranch.deleteById.bind(educationBranch));
+router.patch("/education-branches/backup/:id", educationBranch.backupFromTrash.bind(educationBranch));
+
+router.post("/education-programs", educationProgram.create.bind(educationProgram));
+router.route("/education-programs/:id")
+      .get(educationProgram.getById.bind(educationProgram))
+      .patch(educationProgram.updateById.bind(educationProgram))
+      .delete(educationProgram.moveToTrash.bind(educationProgram));
+router.delete("/education-programs/destroy/:id", educationProgram.deleteById.bind(educationProgram));
+router.patch("/education-programs/backup/:id", educationProgram.backupFromTrash.bind(educationProgram));
+
+router.post("/financial-performances", financialPerformance.create.bind(financialPerformance));
+router.route("/financial-performances/:id")
+      .get(financialPerformance.getById.bind(financialPerformance))
+      .patch(financialPerformance.updateById.bind(financialPerformance))
+      .delete(financialPerformance.moveToTrash.bind(financialPerformance));
+router.delete("/financial-performances/destroy/:id", financialPerformance.deleteById.bind(financialPerformance));
+router.patch("/financial-performances/backup/:id", financialPerformance.backupFromTrash.bind(financialPerformance));
+
+router.post("/ict-services", ICTService.create.bind(ICTService));
+router.route("/ict-services/:id")
+      .get(ICTService.getById.bind(ICTService))
+      .patch(ICTService.updateById.bind(ICTService))
+      .delete(ICTService.moveToTrash.bind(ICTService));
+router.delete("/ict-services/destroy/:id", ICTService.deleteById.bind(ICTService));
+router.patch("/ict-services/backup/:id", ICTService.backupFromTrash.bind(ICTService));
+
+router.post("/investment-opportunities", investmentOpportunity.create.bind(investmentOpportunity));
+router.route("/investment-opportunities/:id")
+      .get(investmentOpportunity.getById.bind(investmentOpportunity))
+      .patch(investmentOpportunity.updateById.bind(investmentOpportunity))
+      .delete(investmentOpportunity.moveToTrash.bind(investmentOpportunity));
+router.delete("/investment-opportunities/destroy/:id", investmentOpportunity.deleteById.bind(investmentOpportunity));
+router.patch("/investment-opportunities/backup/:id", investmentOpportunity.backupFromTrash.bind(investmentOpportunity));
+
+router.post("/investor-faqs", investorFaqs.create.bind(investorFaqs));
+router.route("/investor-faqs/:id")
+      .get(investorFaqs.getById.bind(investorFaqs))
+      .patch(investorFaqs.updateById.bind(investorFaqs))
+      .delete(investorFaqs.moveToTrash.bind(investorFaqs));
+router.delete("/investor-faqs/destroy/:id", investorFaqs.deleteById.bind(investorFaqs));
+router.patch("/investor-faqs/backup/:id", investorFaqs.backupFromTrash.bind(investorFaqs));
+
+router.post("/microfinance-services", microfinanceService.create.bind(microfinanceService));
+router.route("/microfinance-services/:id")
+      .get(microfinanceService.getById.bind(microfinanceService))
+      .patch(microfinanceService.updateById.bind(microfinanceService))
+      .delete(microfinanceService.moveToTrash.bind(microfinanceService));
+router.delete("/microfinance-services/destroy/:id", microfinanceService.deleteById.bind(microfinanceService));
+router.patch("/microfinance-services/backup/:id", microfinanceService.backupFromTrash.bind(microfinanceService));
+
+router.post("/printing-packagings", printingPackaging.create.bind(printingPackaging));
+router.route("/printing-packagings/:id")
+      .get(printingPackaging.getById.bind(printingPackaging))
+      .patch(printingPackaging.updateById.bind(printingPackaging))
+      .delete(printingPackaging.moveToTrash.bind(printingPackaging));
+router.delete("/printing-packagings/destroy/:id", printingPackaging.deleteById.bind(printingPackaging));
+router.patch("/printing-packagings/backup/:id", printingPackaging.backupFromTrash.bind(printingPackaging));
+
+router.post("/sectors", sector.create.bind(sector));
+router.route("/sectors/:id")
+      .get(sector.getById.bind(sector))
+      .patch(sector.updateById.bind(sector))
+      .delete(sector.moveToTrash.bind(sector));
+router.delete("/sectors/destroy/:id", sector.deleteById.bind(sector));
+router.patch("/sectors/backup/:id", sector.backupFromTrash.bind(sector));
 
 
 export default router;
