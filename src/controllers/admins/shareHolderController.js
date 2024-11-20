@@ -60,8 +60,6 @@ class ShareHolderController extends SuperController {
         return ResponseHandler.sendErrorResponse(res, error);  
     }  
 }  
-  
-  
 
 }
 
