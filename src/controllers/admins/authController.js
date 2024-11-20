@@ -68,6 +68,31 @@ class AuthController extends SuperController {
         ResponseHandler.sendErrorResponse(res, error, "Error During Registration! Try Again Please!");
     }
   }
+  
+  async registerShareHolder(data){
+    const data = data;
+    try {
+      const { error, value } = validator.validateAdmin(data);
+      if(error){
+        return ResponseHandler.validationErrorResponse(res, error);
+      }
+      const { phoneNumber, email, password, role } = value;
+      const duplicatedData = await service.checkEmailOrPhone(phoneNumber, email);
+      if (duplicatedData) {
+        if (duplicatedData.phoneNumber === phoneNumber) {
+          return ResponseHandler.sendUnSuccessResponse(res, 'Phone Number already exists!');
+        } else {
+          return ResponseHandler.sendUnSuccessResponse(res, 'Email already exists!');
+        }
+      }
+        const hashedPassword = await helpers.hashPassword(password);
+        value.password = hashedPassword;
+        const data = await service.create(value);
+        return { userId: data.id, error: null };
+    } catch (error) {
+        return ResponseHandler.sendErrorResponse(res, error, "Error During ShareHolder Registration! Try Again Please!");
+    }
+  }
 
 }
 
