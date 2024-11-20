@@ -33,7 +33,7 @@ const sendPasswordResetEmail = async (email, resetLink) => {
     const mailOptions = {
       from: process.env.USER,
       to: email,
-      subject: 'Password Reset Request',
+      subject: 'Pentech Password Reset Request',
       html: `Click <a href="${resetLink}">here</a> to reset your password.`,
     };
       await transporter.sendMail(mailOptions);
