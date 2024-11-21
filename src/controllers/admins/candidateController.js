@@ -1,6 +1,8 @@
 import SuperController from '../superController.js';
 import Candidate from '../../models/admins/Candidate.js';
 import AdminService from '../../services/adminService.js';
+import ResponseHandler from '../responseHandlerController.js';
+import { VotingSession } from '../../models/admins/Associations.js';
 
 const service = new AdminService(Candidate);
 
@@ -20,6 +22,25 @@ class CandidateController extends SuperController {
       return super.create(req, res);
     } catch (error) {
       ResponseHandler.sendErrorResponse(res, error);
+    }
+  }
+  
+  async getAll(req, res) {
+    try {
+      const { trash } = req.query;
+      let result;
+      if (trash === 'true') {
+        result = await service.findAllVotingPopulatedData(VotingSession, "sessionData", { trash: true });
+      } else {
+        result = await service.findAllVotingPopulatedData(VotingSession, "sessionData", { trash: false });
+      }
+    if (!result) {
+        return ResponseHandler.sendUnSuccessResponse(res, 'No data found.');
+    } else {
+        return ResponseHandler.sendSuccessResponse(res, result);
+    }
+    } catch (error) {
+    ResponseHandler.sendErrorResponse(res, error);
     }
   }
 
@@ -54,4 +75,6 @@ class CandidateController extends SuperController {
   }
 
 }
+
+
 export default new CandidateController(service);

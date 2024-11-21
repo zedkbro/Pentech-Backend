@@ -28,6 +28,12 @@ class AdminService extends SuperService {
     const finalCondition = { [Op.and]: [field1, field2] };
     return await this.model.findOne({ where: finalCondition });
   }
+  
+  async findAllVotingPopulatedData(model, path, condition) {
+    return await this.model.findAll({ 
+      where: condition, 
+      include: [{ model, as: path }]});
+  }
     
 }
 

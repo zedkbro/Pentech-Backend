@@ -3,7 +3,7 @@ import EducationBranch from './EducationBranch.js';
 import EducationProgram from './EducationProgram.js';
 import ICTService from './ICTService.js';
 import PrintingPackaging from './PrintingPackaging.js';
-import MicrofinanceServices from './MicroFinanceServices.js';
+import MicrofinanceService from './MicrofinanceService.js';
 import Admin from './Admin.js';
 import ShareHolder from './ShareHolder.js';
 import Share from './Share.js';
@@ -48,8 +48,11 @@ ICTService.belongsTo(Sector, { foreignKey: 'sectorId', as: 'sectorData' });
 Sector.hasMany(PrintingPackaging, { foreignKey: 'sectorId', as: 'sectorPrinting' });
 PrintingPackaging.belongsTo(Sector, { foreignKey: 'sectorId', as: 'sectorData' });
 
-Sector.hasMany(MicrofinanceServices, { foreignKey: 'sectorId', as: 'sectorMicrofinance' });
-MicrofinanceServices.belongsTo(Sector, { foreignKey: 'sectorId', as: 'sectorData' });
+Sector.hasMany(MicrofinanceService, { foreignKey: 'sectorId', as: 'sectorMicrofinance' });
+MicrofinanceService.belongsTo(Sector, { foreignKey: 'sectorId', as: 'sectorData' });
 
 
-export { Sector, EducationBranch, EducationProgram, ICTService, PrintingPackaging, MicrofinanceServices };
+export { Sector, EducationBranch, EducationProgram, ICTService, PrintingPackaging,
+     MicrofinanceService, Admin, ShareHolder, Share, Vote, VoteResult, Candidate,
+    VotingSession, VoteJoined };
+     
