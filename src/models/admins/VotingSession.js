@@ -10,7 +10,7 @@ class VotingSession extends BaseModel {}
         threshold: { type: DataTypes.TEXT, allowNull: false, trim: true },
         startedAt: { type: DataTypes.DATE, allowNull: true, trim: true, defaultValue: null },
         completedAt: { type: DataTypes.DATE, allowNull: true, trim: true, defaultValue: null },
-        status: { type: DataTypes.STRING, allowNull: false, trim: true, validate: { isIn: ['not_started', 'on_going', 'completed']}  },
+        status: { type: DataTypes.ENUM('not_started', 'on_going', 'completed'), defaultValue: 'not_started' },
         trash: { type: DataTypes.BOOLEAN, allowNull: false, trim: true, defaultValue: false }
     });
 
