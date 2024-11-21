@@ -24,6 +24,9 @@ VoteResult.belongsTo(Vote, { foreignKey: 'voteId', as: 'voteData' });
 Vote.hasMany(ShareHolder, { foreignKey: 'shareHolderId', as: 'shareholder' });
 ShareHolder.belongsTo(Vote, { foreignKey: 'shareHolderId', as: 'voteData' });
 
+// Vote.hasMany(ShareHolder, { foreignKey: 'shareHolderId', as: 'shareholder' });
+// ShareHolder.belongsTo(Vote, { foreignKey: 'shareHolderId', as: 'voteData' });
+
 Sector.hasMany(EducationBranch, { foreignKey: 'sectorId', as: 'sectorEducation' });
 EducationBranch.belongsTo(Sector, { foreignKey: 'sectorId', as: 'sectorData' });
 
