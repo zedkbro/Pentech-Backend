@@ -1,13 +1,27 @@
-import BaseModel from '../BaseModel.js';
-import { DataTypes } from 'sequelize';
+import BaseModel from "../BaseModel.js";
+import { DataTypes } from "sequelize";
 
 class Share extends BaseModel {}
-
-    Share.init({
-        id: { type: DataTypes.UUID, defaultValue: DataTypes.UUIDV4, primaryKey: true, allowNull: false},
-        shareValue: { type: DataTypes.TEXT, allowNull: false, trim: true },
-        description: { type: DataTypes.TEXT, allowNull: true, trim: true, defaultValue: null },
-        trash: { type: DataTypes.BOOLEAN, allowNull: false, trim: true, defaultValue: false }
-    });
+Share.init({
+  id: {
+    type: DataTypes.UUID,
+    defaultValue: DataTypes.UUIDV4,
+    primaryKey: true,
+    allowNull: false,
+  },
+  shareValue: { type: DataTypes.TEXT, allowNull: false, trim: true },
+  description: {
+    type: DataTypes.TEXT,
+    allowNull: true,
+    trim: true,
+    defaultValue: null,
+  },
+  trash: {
+    type: DataTypes.BOOLEAN,
+    allowNull: false,
+    trim: true,
+    defaultValue: false,
+  },
+});
 
 export default Share;
