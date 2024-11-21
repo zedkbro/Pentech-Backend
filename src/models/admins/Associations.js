@@ -9,6 +9,9 @@ import ShareHolder from './ShareHolder.js';
 import Share from './Share.js';
 import Vote from './Vote.js';
 import VoteResult from './VoteResult.js';
+import Candidate from './Candidate.js';
+import VotingSession from './VotingSession.js';
+import VoteJoined from './VoteJoined.js';
 
 ShareHolder.belongsTo(Admin, { foreignKey: 'userId', as: 'usedData' });
 
@@ -24,8 +27,14 @@ VoteResult.belongsTo(Vote, { foreignKey: 'voteId', as: 'voteData' });
 Vote.hasMany(ShareHolder, { foreignKey: 'shareHolderId', as: 'shareholder' });
 ShareHolder.belongsTo(Vote, { foreignKey: 'shareHolderId', as: 'voteData' });
 
-// Vote.hasMany(ShareHolder, { foreignKey: 'shareHolderId', as: 'shareholder' });
-// ShareHolder.belongsTo(Vote, { foreignKey: 'shareHolderId', as: 'voteData' });
+ShareHolder.hasMany(VoteJoined, { foreignKey: 'shareHolderId', as: 'voteJoined' });
+VoteJoined.belongsTo(ShareHolder, { foreignKey: 'shareHolderId', as: 'shareHolderData' });
+
+VotingSession.hasMany(VoteJoined, { foreignKey: 'sessionId', as: 'voteJoined' });
+VoteJoined.belongsTo(VotingSession, { foreignKey: 'sessionId', as: 'sessionData' });
+
+VotingSession.hasMany(Candidate, { foreignKey: 'sessionId', as: 'candidate' });
+Candidate.belongsTo(VotingSession, { foreignKey: 'sessionId', as: 'sessionData' });
 
 Sector.hasMany(EducationBranch, { foreignKey: 'sectorId', as: 'sectorEducation' });
 EducationBranch.belongsTo(Sector, { foreignKey: 'sectorId', as: 'sectorData' });
