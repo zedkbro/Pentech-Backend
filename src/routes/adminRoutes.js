@@ -35,6 +35,8 @@ import microfinanceService from "../controllers/admins/microfinanceServiceContro
 import printingPackaging from "../controllers/admins/printingPackagingController.js";
 import sector from "../controllers/admins/sectorController.js";
 import share from "../controllers/admins/shareController.js";
+import votingSession from "../controllers/admins/votingSessionController.js";
+
 import shareHolder from "../controllers/admins/shareHolderController.js";
 import vote from "../controllers/admins/voteController.js";
 import voteResult from "../controllers/admins/voteResultController.js";
@@ -75,25 +77,35 @@ router
   .get("/statistics", statistics.getAll.bind(statistics))
   .get("/why-choose", whyChoose.getAll.bind(whyChoose))
 
-      /** ----------- Latest Added  --------------------------*/
-      .get("/education-branches", educationBranch.getAll.bind(educationBranch))
-      .get("/education-programs", educationProgram.getAll.bind(educationProgram))
-      .get("/finance-performances", financialPerformance.getAll.bind(financialPerformance))
-      .get("/ict-services", ICTService.getAll.bind(ICTService))
-      .get("/investment-opportunities", investmentOpportunity.getAll.bind(investmentOpportunity))
-      .get("/investor-faqs", investorFaqs.getAll.bind(investorFaqs))
-      .get("/microfinance-services", microfinanceService.getAll.bind(microfinanceService))
-      .get("/printing-packagings", printingPackaging.getAll.bind(printingPackaging))
-      .get("/sectors", sector.getAll.bind(sector))
-      .get("/shares", share.getAll.bind(share))
-      .get("/share-holders", shareHolder.getAll.bind(shareHolder))
-      .get("/votes", vote.getAll.bind(vote))
-      .get("/vote-results", voteResult.getAll.bind(voteResult))
-      .get("/code-of-conducts", codeOfConduct.getAll.bind(codeOfConduct))
-      .get("/vote-rights", voteRight.getAll.bind(voteRight));
+  /** ----------- Latest Added  --------------------------*/
+  .get("/education-branches", educationBranch.getAll.bind(educationBranch))
+  .get("/education-programs", educationProgram.getAll.bind(educationProgram))
+  .get(
+    "/finance-performances",
+    financialPerformance.getAll.bind(financialPerformance)
+  )
+  .get("/ict-services", ICTService.getAll.bind(ICTService))
+  .get(
+    "/investment-opportunities",
+    investmentOpportunity.getAll.bind(investmentOpportunity)
+  )
+  .get("/investor-faqs", investorFaqs.getAll.bind(investorFaqs))
+  .get(
+    "/microfinance-services",
+    microfinanceService.getAll.bind(microfinanceService)
+  )
+  .get("/printing-packagings", printingPackaging.getAll.bind(printingPackaging))
+  .get("/sectors", sector.getAll.bind(sector))
+  .get("/shares", share.getAll.bind(share))
+  .get("/share-holders", shareHolder.getAll.bind(shareHolder))
+  .get("/votes", vote.getAll.bind(vote))
+  .get("/vote-results", voteResult.getAll.bind(voteResult))
+  .get("/code-of-conducts", codeOfConduct.getAll.bind(codeOfConduct))
+  .get("/vote-rights", voteRight.getAll.bind(voteRight));
 
-router.get("/count-products", product.countDocuments.bind(product))
-      .get("/count-services", service.countDocuments.bind(service));
+router
+  .get("/count-products", product.countDocuments.bind(product))
+  .get("/count-services", service.countDocuments.bind(service));
 
 router
   .get("/service/:title", service.findServiceByTitle)
@@ -569,60 +581,94 @@ router.delete("/sectors/destroy/:id", sector.deleteById.bind(sector));
 router.patch("/sectors/backup/:id", sector.backupFromTrash.bind(sector));
 
 router.post("/shares", share.create.bind(share));
-router.route("/shares/:id")
-      .get(share.getById.bind(share))
-      .patch(share.updateById.bind(share))
-      .delete(share.moveToTrash.bind(share));
+router
+  .route("/shares/:id")
+  .get(share.getById.bind(share))
+  .patch(share.updateById.bind(share))
+  .delete(share.moveToTrash.bind(share));
 router.delete("/shares/destroy/:id", share.deleteById.bind(share));
 router.patch("/shares/backup/:id", share.backupFromTrash.bind(share));
 
 router.post("/share-holders", shareHolder.create.bind(shareHolder));
-router.route("/share-holders/:id")
-      .get(shareHolder.getById.bind(shareHolder))
-      .patch(shareHolder.updateById.bind(shareHolder))
-      .delete(shareHolder.moveToTrash.bind(shareHolder));
-router.delete("/share-holders/destroy/:id", shareHolder.deleteById.bind(shareHolder));
-router.patch("/share-holders/backup/:id", shareHolder.backupFromTrash.bind(shareHolder));
+router
+  .route("/share-holders/:id")
+  .get(shareHolder.getById.bind(shareHolder))
+  .patch(shareHolder.updateById.bind(shareHolder))
+  .delete(shareHolder.moveToTrash.bind(shareHolder));
+router.delete(
+  "/share-holders/destroy/:id",
+  shareHolder.deleteById.bind(shareHolder)
+);
+router.patch(
+  "/share-holders/backup/:id",
+  shareHolder.backupFromTrash.bind(shareHolder)
+);
 
 router.post("/votes", vote.create.bind(vote));
-router.route("/votes/:id")
-      .get(vote.getById.bind(vote))
-      .patch(vote.updateById.bind(vote))
-      .delete(vote.moveToTrash.bind(vote));
+router
+  .route("/votes/:id")
+  .get(vote.getById.bind(vote))
+  .patch(vote.updateById.bind(vote))
+  .delete(vote.moveToTrash.bind(vote));
 router.delete("/votes/destroy/:id", vote.deleteById.bind(vote));
 router.patch("/votes/backup/:id", vote.backupFromTrash.bind(vote));
 
 router.post("/vote-results", voteResult.create.bind(voteResult));
-router.route("/vote-results/:id")
-      .get(voteResult.getById.bind(voteResult))
-      .patch(voteResult.updateById.bind(voteResult))
-      .delete(voteResult.moveToTrash.bind(voteResult));
-router.delete("/vote-results/destroy/:id", voteResult.deleteById.bind(voteResult));
-router.patch("/vote-results/backup/:id", voteResult.backupFromTrash.bind(voteResult));
+router
+  .route("/vote-results/:id")
+  .get(voteResult.getById.bind(voteResult))
+  .patch(voteResult.updateById.bind(voteResult))
+  .delete(voteResult.moveToTrash.bind(voteResult));
+router.delete(
+  "/vote-results/destroy/:id",
+  voteResult.deleteById.bind(voteResult)
+);
+router.patch(
+  "/vote-results/backup/:id",
+  voteResult.backupFromTrash.bind(voteResult)
+);
 
 router.post("/code-of-conducts", codeOfConduct.create.bind(codeOfConduct));
-router.route("/code-of-conducts/:id")
-      .get(codeOfConduct.getById.bind(codeOfConduct))
-      .patch(codeOfConduct.updateById.bind(codeOfConduct))
-      .delete(codeOfConduct.moveToTrash.bind(codeOfConduct));
-router.delete("/code-of-conducts/destroy/:id", codeOfConduct.deleteById.bind(codeOfConduct));
-router.patch("/code-of-conducts/backup/:id", codeOfConduct.backupFromTrash.bind(codeOfConduct));
+router
+  .route("/code-of-conducts/:id")
+  .get(codeOfConduct.getById.bind(codeOfConduct))
+  .patch(codeOfConduct.updateById.bind(codeOfConduct))
+  .delete(codeOfConduct.moveToTrash.bind(codeOfConduct));
+router.delete(
+  "/code-of-conducts/destroy/:id",
+  codeOfConduct.deleteById.bind(codeOfConduct)
+);
+router.patch(
+  "/code-of-conducts/backup/:id",
+  codeOfConduct.backupFromTrash.bind(codeOfConduct)
+);
 
 router.post("/vote-rights", voteRight.create.bind(voteRight));
-router.route("/vote-rights/:id")
-      .get(voteRight.getById.bind(voteRight))
-      .patch(voteRight.updateById.bind(voteRight))
-      .delete(voteRight.moveToTrash.bind(voteRight));
+router
+  .route("/vote-rights/:id")
+  .get(voteRight.getById.bind(voteRight))
+  .patch(voteRight.updateById.bind(voteRight))
+  .delete(voteRight.moveToTrash.bind(voteRight));
 router.delete("/vote-rights/destroy/:id", voteRight.deleteById.bind(voteRight));
-router.patch("/vote-rights/backup/:id", voteRight.backupFromTrash.bind(voteRight));
+router.patch(
+  "/vote-rights/backup/:id",
+  voteRight.backupFromTrash.bind(voteRight)
+);
 
 router.post("/voting-sessions", votingSession.create.bind(votingSession));
-router.route("/voting-sessions/:id")
-      .get(votingSession.getById.bind(votingSession))
-      .patch(votingSession.updateById.bind(votingSession))
-      .delete(votingSession.moveToTrash.bind(votingSession));
-router.delete("/voting-sessions/destroy/:id", votingSession.deleteById.bind(votingSession));
-router.patch("/voting-sessions/backup/:id", votingSession.backupFromTrash.bind(votingSession));
+router
+  .route("/voting-sessions/:id")
+  .get(votingSession.getById.bind(votingSession))
+  .patch(votingSession.updateById.bind(votingSession))
+  .delete(votingSession.moveToTrash.bind(votingSession));
+router.delete(
+  "/voting-sessions/destroy/:id",
+  votingSession.deleteById.bind(votingSession)
+);
+router.patch(
+  "/voting-sessions/backup/:id",
+  votingSession.backupFromTrash.bind(votingSession)
+);
 
 router.post("/shares", share.create.bind(share));
 router
