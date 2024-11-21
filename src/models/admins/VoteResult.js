@@ -1,6 +1,5 @@
 import BaseModel from '../BaseModel.js';
 import { DataTypes } from 'sequelize';
-import Admin from './Admin.js';
 import Vote from './Vote.js';
 import ShareHolder from './ShareHolder.js';
 
