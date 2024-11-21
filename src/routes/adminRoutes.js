@@ -40,6 +40,7 @@ import vote from "../controllers/admins/voteController.js";
 import voteResult from "../controllers/admins/voteResultController.js";
 import codeOfConduct from "../controllers/admins/codeOfConductController.js";
 import voteRight from "../controllers/admins/voteRightController.js";
+import votingSession from "../controllers/admins/votingSessionController.js";
 
 const router = express.Router();
 
@@ -85,7 +86,8 @@ router.get("/services", service.findAll.bind(service))
       .get("/votes", vote.getAll.bind(vote))
       .get("/vote-results", voteResult.getAll.bind(voteResult))
       .get("/code-of-conducts", codeOfConduct.getAll.bind(codeOfConduct))
-      .get("/vote-rights", voteRight.getAll.bind(voteRight));
+      .get("/vote-rights", voteRight.getAll.bind(voteRight))
+      .get("/voting-sessions", votingSession.getAll.bind(votingSession));
 
 router.get("/count-products", product.countDocuments.bind(product))
       .get("/count-services", service.countDocuments.bind(service));
@@ -418,6 +420,14 @@ router.route("/vote-rights/:id")
       .delete(voteRight.moveToTrash.bind(voteRight));
 router.delete("/vote-rights/destroy/:id", voteRight.deleteById.bind(voteRight));
 router.patch("/vote-rights/backup/:id", voteRight.backupFromTrash.bind(voteRight));
+
+router.post("/voting-sessions", votingSession.create.bind(votingSession));
+router.route("/voting-sessions/:id")
+      .get(votingSession.getById.bind(votingSession))
+      .patch(votingSession.updateById.bind(votingSession))
+      .delete(votingSession.moveToTrash.bind(votingSession));
+router.delete("/voting-sessions/destroy/:id", votingSession.deleteById.bind(votingSession));
+router.patch("/voting-sessions/backup/:id", votingSession.backupFromTrash.bind(votingSession));
 
 
 export default router;
