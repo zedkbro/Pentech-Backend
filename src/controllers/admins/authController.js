@@ -70,9 +70,9 @@ class AuthController extends SuperController {
   }
   
   async registerShareHolder(data){
-    const data = data;
+    const dataValue = data;
     try {
-      const { error, value } = validator.validateAdmin(data);
+      const { error, value } = validator.validateAdmin(dataValue);
       if(error){
         return ResponseHandler.validationErrorResponse(res, error);
       }
