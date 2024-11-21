@@ -100,6 +100,7 @@ router
   .get("/shares", share.getAll.bind(share))
   .get("/share-holders", shareHolder.getAll.bind(shareHolder))
   .get("/votes", vote.getAll.bind(vote))
+  .get("/voting-sessions", votingSession.getAll.bind(votingSession))
   .get("/vote-results", voteResult.getAll.bind(voteResult))
   .get("/code-of-conducts", codeOfConduct.getAll.bind(codeOfConduct))
   .get("/vote-rights", voteRight.getAll.bind(voteRight))
