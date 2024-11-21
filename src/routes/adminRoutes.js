@@ -34,6 +34,12 @@ import investorFaqs from "../controllers/admins/investorFaqsController.js";
 import microfinanceService from "../controllers/admins/microfinanceServiceController.js";
 import printingPackaging from "../controllers/admins/printingPackagingController.js";
 import sector from "../controllers/admins/sectorController.js";
+import share from "../controllers/admins/shareController.js";
+import shareHolder from "../controllers/admins/shareHolderController.js";
+import vote from "../controllers/admins/voteController.js";
+import voteResult from "../controllers/admins/voteResultController.js";
+import codeOfConduct from "../controllers/admins/codeOfConductController.js";
+import voteRight from "../controllers/admins/voteRightController.js";
 
 const router = express.Router();
 
@@ -78,11 +84,16 @@ router
       .get("/investor-faqs", investorFaqs.getAll.bind(investorFaqs))
       .get("/microfinance-services", microfinanceService.getAll.bind(microfinanceService))
       .get("/printing-packagings", printingPackaging.getAll.bind(printingPackaging))
-      .get("/sectors", sector.getAll.bind(sector));
+      .get("/sectors", sector.getAll.bind(sector))
+      .get("/shares", share.getAll.bind(share))
+      .get("/share-holders", shareHolder.getAll.bind(shareHolder))
+      .get("/votes", vote.getAll.bind(vote))
+      .get("/vote-results", voteResult.getAll.bind(voteResult))
+      .get("/code-of-conducts", codeOfConduct.getAll.bind(codeOfConduct))
+      .get("/vote-rights", voteRight.getAll.bind(voteRight));
 
-router
-  .get("/count-products", product.countDocuments.bind(product))
-  .get("/count-services", service.countDocuments.bind(service));
+router.get("/count-products", product.countDocuments.bind(product))
+      .get("/count-services", service.countDocuments.bind(service));
 
 router
   .get("/service/:title", service.findServiceByTitle)
@@ -604,6 +615,14 @@ router.route("/vote-rights/:id")
       .delete(voteRight.moveToTrash.bind(voteRight));
 router.delete("/vote-rights/destroy/:id", voteRight.deleteById.bind(voteRight));
 router.patch("/vote-rights/backup/:id", voteRight.backupFromTrash.bind(voteRight));
+
+router.post("/voting-sessions", votingSession.create.bind(votingSession));
+router.route("/voting-sessions/:id")
+      .get(votingSession.getById.bind(votingSession))
+      .patch(votingSession.updateById.bind(votingSession))
+      .delete(votingSession.moveToTrash.bind(votingSession));
+router.delete("/voting-sessions/destroy/:id", votingSession.deleteById.bind(votingSession));
+router.patch("/voting-sessions/backup/:id", votingSession.backupFromTrash.bind(votingSession));
 
 router.post("/shares", share.create.bind(share));
 router
