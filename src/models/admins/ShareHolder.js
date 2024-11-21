@@ -40,7 +40,7 @@ ShareHolder.init(
             allowNull: false,
         },
         totalShares: {
-            type: DataTypes.INTEGER, // Changed from NUMBER to INTEGER
+            type: DataTypes.INTEGER, 
             allowNull: false,
             defaultValue: 1,
         },
@@ -49,10 +49,6 @@ ShareHolder.init(
             allowNull: false,
             defaultValue: false,
         },
-    },
-    {
-        sequelize: BaseModel.sequelize, // Ensure you're passing the Sequelize instance
-        modelName: 'ShareHolder',
     }
 );
 
