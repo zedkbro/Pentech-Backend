@@ -11,7 +11,7 @@ class Vote extends BaseModel {}
         description: { type: DataTypes.TEXT, allowNull: true, trim: true, defaultValue: null },
         voteCount: { type: DataTypes.TEXT, allowNull: true, trim: true, defaultValue: null },
         date: { type: DataTypes.TEXT, allowNull: true, trim: true, defaultValue: null },
-        status: { type: DataTypes.NUMBER, allowNull: true, trim: true, defaultValue: 0 },
+        status: { type: DataTypes.INTEGER, allowNull: true, trim: true, defaultValue: 0 },
         trash: { type: DataTypes.BOOLEAN, allowNull: false, trim: true, defaultValue: false }
     });
 

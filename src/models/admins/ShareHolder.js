@@ -14,7 +14,7 @@ class ShareHolder extends BaseModel {}
         city: { type: DataTypes.TEXT, allowNull: false, trim: true },
         country: { type: DataTypes.TEXT, allowNull: false, trim: true },
         city: { type: DataTypes.TEXT, allowNull: false, trim: true },
-        totalShares: { type: DataTypes.NUMBER, allowNull: false, trim: true, defaultValue: 1 },
+        totalShares: { type: DataTypes.INTEGER, allowNull: false, trim: true, defaultValue: 1 },
         trash: { type: DataTypes.BOOLEAN, allowNull: false, trim: true, defaultValue: false }
     });
 
