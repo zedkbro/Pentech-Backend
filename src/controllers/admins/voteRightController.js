@@ -1,5 +1,5 @@
 import SuperController from '../superController.js';
-import VoteRight from '../../models/admins/VoteResult.js';
+import VoteRight from '../../models/admins/VoteRight.js';
 import AdminService from '../../services/adminService.js';
 
 const service = new AdminService(VoteRight);

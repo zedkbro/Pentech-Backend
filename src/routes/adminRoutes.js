@@ -36,12 +36,12 @@ import printingPackaging from "../controllers/admins/printingPackagingController
 import sector from "../controllers/admins/sectorController.js";
 import share from "../controllers/admins/shareController.js";
 import votingSession from "../controllers/admins/votingSessionController.js";
-
 import shareHolder from "../controllers/admins/shareHolderController.js";
 import vote from "../controllers/admins/voteController.js";
 import voteResult from "../controllers/admins/voteResultController.js";
 import codeOfConduct from "../controllers/admins/codeOfConductController.js";
 import voteRight from "../controllers/admins/voteRightController.js";
+import candidate from "../controllers/admins/candidateController.js";
 
 const router = express.Router();
 
@@ -101,7 +101,8 @@ router
   .get("/votes", vote.getAll.bind(vote))
   .get("/vote-results", voteResult.getAll.bind(voteResult))
   .get("/code-of-conducts", codeOfConduct.getAll.bind(codeOfConduct))
-  .get("/vote-rights", voteRight.getAll.bind(voteRight));
+  .get("/vote-rights", voteRight.getAll.bind(voteRight))
+  .get("/candidates", candidate.getAll.bind(candidate));
 
 router
   .get("/count-products", product.countDocuments.bind(product))
@@ -744,5 +745,15 @@ router.patch(
   "/vote-rights/backup/:id",
   voteRight.backupFromTrash.bind(voteRight)
 );
+
+router.post("/candidates", candidate.create.bind(candidate));
+router
+  .route("/candidates/:id")
+  .get(candidate.getById.bind(candidate))
+  .patch(candidate.updateById.bind(candidate))
+  .delete(candidate.moveToTrash.bind(candidate));
+router.delete("/candidates/destroy/:id", candidate.deleteById.bind(candidate));
+router.patch("/candidates/backup/:id", candidate.backupFromTrash.bind(candidate));
+
 
 export default router;
