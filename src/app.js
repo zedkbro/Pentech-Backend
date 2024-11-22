@@ -34,8 +34,8 @@ app.disable('x-powered-by');
 app.use(logger('dev', {
   skip: () => app.get('env') === 'test'
 }));
-const logStream = fs.createWriteStream('request_logs.txt', { flags: 'a' });
-app.use(logger('combined', { stream: logStream }));
+// const logStream = fs.createWriteStream('request_logs.txt', { flags: 'a' });
+// app.use(logger('combined', { stream: logStream }));
 
 app.use(express.json()); 
 app.use(cookieParser());
