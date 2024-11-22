@@ -657,7 +657,7 @@ router.patch(
   "/vote-rights/backup/:id",
   voteRight.backupFromTrash.bind(voteRight)
 );
-
+router.get("/voting-sessions", votingSession.getAll.bind(votingSession));
 router.post("/voting-sessions", votingSession.create.bind(votingSession));
 router
   .route("/voting-sessions/:id")
@@ -743,21 +743,32 @@ router
   .patch(voteRight.updateById.bind(voteRight))
   .delete(voteRight.moveToTrash.bind(voteRight));
 router.delete("/vote-rights/destroy/:id", voteRight.deleteById.bind(voteRight));
-router.patch("/vote-rights/backup/:id", voteRight.backupFromTrash.bind(voteRight));
+router.patch(
+  "/vote-rights/backup/:id",
+  voteRight.backupFromTrash.bind(voteRight)
+);
 
 router.post("/vote-joined", voteJoined.create.bind(voteJoined));
-router.route("/vote-joined/:id")
-      .get(voteJoined.getById.bind(voteJoined))
-      .patch(voteJoined.updateById.bind(voteJoined))
-      .delete(voteJoined.moveToTrash.bind(voteJoined));
-router.delete("/vote-joined/destroy/:id", voteJoined.deleteById.bind(voteJoined));
-router.patch("/vote-joined/backup/:id", voteJoined.backupFromTrash.bind(voteJoined));
+router
+  .route("/vote-joined/:id")
+  .get(voteJoined.getById.bind(voteJoined))
+  .patch(voteJoined.updateById.bind(voteJoined))
+  .delete(voteJoined.moveToTrash.bind(voteJoined));
+router.delete(
+  "/vote-joined/destroy/:id",
+  voteJoined.deleteById.bind(voteJoined)
+);
+router.patch(
+  "/vote-joined/backup/:id",
+  voteJoined.backupFromTrash.bind(voteJoined)
+);
 
 router.post("/candidates", candidate.create.bind(candidate));
-router.route("/candidates/:id")
-      .get(candidate.getById.bind(candidate))
-      .patch(candidate.updateById.bind(candidate))
-      .delete(candidate.moveToTrash.bind(candidate));
+router
+  .route("/candidates/:id")
+  .get(candidate.getById.bind(candidate))
+  .patch(candidate.updateById.bind(candidate))
+  .delete(candidate.moveToTrash.bind(candidate));
 router.delete("/candidates/destroy/:id", candidate.deleteById.bind(candidate));
 router.patch(
   "/candidates/backup/:id",
