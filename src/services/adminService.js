@@ -34,10 +34,10 @@ class AdminService extends SuperService {
         include: [{ model, as: path }]});
     }
 
-    async findAllSharePopulatedData(model, path, condition) {
+    async findAllSharePopulatedData(includeOptions, condition) {
       return await this.model.findAll({ 
         where: condition, 
-        include: [{ model, as: path }]});
+        include: includeOptions });
     }
     
 }

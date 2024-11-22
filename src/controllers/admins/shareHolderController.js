@@ -35,34 +35,63 @@ class ShareHolderController extends SuperController {
       ResponseHandler.sendErrorResponse(res, error);
     }
   }
-  
+
   async getAll(req, res) {  
     try {  
         const { trash } = req.query;  
-        let result;  
-        if (trash === 'true') {  
-            result = await service.findAllSharePopulatedData(Admin, "usedData", { trash: true });
-            // result = await service.findAllSharePopulatedData(Share, "shareData", { trash: true });
-        } else {  
-            result = await service.findAllSharePopulatedData(Admin, "usedData", { trash: false });
-            // result = await service.findAllSharePopulatedData(Share, "shareData", { trash: false });
-        }   
-        // const { trash } = req.query;  
-        // const filterOptions = { trash: trash === 'true' };  
-        // const includeOptions = [
-        //     { model: Admin, required: false },  // LEFT JOIN Admin
-        //     { model: Share, required: false }   // LEFT JOIN Share
-        // ];
-        // const result = await service.findAllSharePopulatedData(includeOptions, "usedData", filterOptions);
-        if (!result) {  
+        const filterOptions = { trash: trash === 'true' };  
+        const includeOptions = [  
+            {  
+                model: Admin,  
+                as: 'usedData',  
+                required: false,  // LEFT JOIN  
+                where: { trash: filterOptions.trash } 
+            },  
+            {  
+                model: Share,  
+                as: 'shareData',  
+                required: false,  // LEFT JOIN  
+                where: { trash: filterOptions.trash } 
+            }  
+        ];  
+        const result = await service.findAllSharePopulatedData(includeOptions, filterOptions);  
+        if (!result.length) {  
             return ResponseHandler.sendUnSuccessResponse(res, 'No ShareHolder found!');  
         } else {  
-            return ResponseHandler.sendSuccessResponse(res, result);  
+            return ResponseHandler.sendSuccessResponse(res, result );  
         }  
     } catch (error) {  
         return ResponseHandler.sendErrorResponse(res, error);  
     }  
-  }  
+}
+  
+//   async getAll(req, res) {  
+//     try {  
+//         const { trash } = req.query;  
+//         let result;  
+//         if (trash === 'true') {  
+//             result = await service.findAllSharePopulatedData(Admin, "usedData", { trash: true });
+//             // result = await service.findAllSharePopulatedData(Share, "shareData", { trash: true });
+//         } else {  
+//             result = await service.findAllSharePopulatedData(Admin, "usedData", { trash: false });
+//             // result = await service.findAllSharePopulatedData(Share, "shareData", { trash: false });
+//         }   
+//         // const { trash } = req.query;  
+//         // const filterOptions = { trash: trash === 'true' };  
+//         // const includeOptions = [
+//         //     { model: Admin, required: false },  // LEFT JOIN Admin
+//         //     { model: Share, required: false }   // LEFT JOIN Share
+//         // ];
+//         // const result = await service.findAllSharePopulatedData(includeOptions, "usedData", filterOptions);
+//         if (!result) {  
+//             return ResponseHandler.sendUnSuccessResponse(res, 'No ShareHolder found!');  
+//         } else {  
+//             return ResponseHandler.sendSuccessResponse(res, result);  
+//         }  
+//     } catch (error) {  
+//         return ResponseHandler.sendErrorResponse(res, error);  
+//     }  
+//   }  
 
 }
 
