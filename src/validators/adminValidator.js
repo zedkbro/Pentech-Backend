@@ -45,11 +45,11 @@ const validator = Joi.object({
     "any.required": "Password is required",
     "string.min": "Password must be at least {#limit} characters",
   }),
-  role: Joi.string().trim().valid("admin", "staff").required().messages({
+  role: Joi.string().trim().valid("admin", "staff", "shareholder").required().messages({
     "any.required": "Role is required",
     "string.base": "Role must be a string",
-    "any.only": "Role must be either admin or staff",
-    "string.valid": "Role must be either admin or staff",
+    "any.only": "Role must be either admin, staff, or shareholder",
+    "string.valid": "Role must be either admin, staff, or shareholder",
   }),
   avatar: Joi.string().allow(null).allow("").messages({
     "string.empty": "Avatar cannot be empty",

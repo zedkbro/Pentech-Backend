@@ -74,15 +74,18 @@ class AuthController extends SuperController {
     try {
       const { error, value } = validator.validateAdmin(dataValue);
       if(error){
-        return ResponseHandler.validationErrorResponse(res, error);
+        throw new Error(error)
+        // return ResponseHandler.validationErrorResponse(res, error);
       }
-      const { phoneNumber, email, password, role } = value;
+      const { phoneNumber, email, password } = value;
       const duplicatedData = await service.checkEmailOrPhone(phoneNumber, email);
       if (duplicatedData) {
         if (duplicatedData.phoneNumber === phoneNumber) {
-          return ResponseHandler.sendUnSuccessResponse(res, 'Phone Number already exists!');
+        throw new Error("Phone Number already exists!");
+        // return ResponseHandler.sendUnSuccessResponse(res, 'Phone Number already exists!');
         } else {
-          return ResponseHandler.sendUnSuccessResponse(res, 'Email already exists!');
+        throw new Error("Email already exists!")
+          // return ResponseHandler.sendUnSuccessResponse(res, 'Email already exists!');
         }
       }
         const hashedPassword = await helpers.hashPassword(password);
@@ -90,7 +93,8 @@ class AuthController extends SuperController {
         const data = await service.create(value);
         return { userId: data.id, error: null };
     } catch (error) {
-        return ResponseHandler.sendErrorResponse(res, error, "Error During ShareHolder Registration! Try Again Please!");
+        throw new Error(error)
+        // return ResponseHandler.sendErrorResponse(res, error, "Error During ShareHolder Registration! Try Again Please!");
     }
   }
 

@@ -22,18 +22,17 @@ class AdminService extends SuperService {
     async findProfileById(id) {
       return await this.model.findByPk(id, { attributes: { exclude: 'password' } });
     }
-
+      
+    async checkEmailOrPhoneToUpdate(field1, field2) {
+      const finalCondition = { [Op.and]: [field1, field2] };
+      return await this.model.findOne({ where: finalCondition });
+    }
     
-  async checkEmailOrPhoneToUpdate(field1, field2) {
-    const finalCondition = { [Op.and]: [field1, field2] };
-    return await this.model.findOne({ where: finalCondition });
-  }
-  
-  async findAllVotingPopulatedData(model, path, condition) {
-    return await this.model.findAll({ 
-      where: condition, 
-      include: [{ model, as: path }]});
-  }
+    async findAllVotingPopulatedData(model, path, condition) {
+      return await this.model.findAll({ 
+        where: condition, 
+        include: [{ model, as: path }]});
+    }
     
 }
 
