@@ -118,7 +118,7 @@ router
   .get("/career/:title", career.findVacancyByTitle.bind(career));
 
 router.use(auth.authenticateUser); // authentication for all routes
-router.use(auth.authorize(["admin", "staff"])); // authorization for all admin routes
+router.use(auth.authorize(["admin", "shareholder"])); // authorization for all admin routes
 
 router
   .route("/profile")

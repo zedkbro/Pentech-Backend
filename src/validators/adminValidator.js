@@ -358,12 +358,15 @@ const validateTermsAndConditions = (termsAndConditions) => {
 };
 
 const StatisticsSchema = Joi.object({
-  milstone: Joi.number().required().messages({
-    "any.required": "members  is required",
+  milestone: Joi.string().required().messages({
+    "any.required": "Milestone  is required",
   }),
-  total: Joi.number().required().messages({
-    "any.required": "loan distributed is required",
-  })
+  total: Joi.string().required().messages({
+    "any.required": "Total is required",
+  }),
+  description: Joi.string().allow(null).messages({
+    "string.empty": "Description cannot be empty",
+  }),
 }).unknown(true);
 
 const validateStatistics = (statistics) => {

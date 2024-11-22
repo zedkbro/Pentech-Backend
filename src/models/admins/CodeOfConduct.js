@@ -2,7 +2,6 @@ import BaseModel from '../BaseModel.js';
 import { DataTypes } from 'sequelize';
 
 class CodeOfConduct extends BaseModel {}
-
     CodeOfConduct.init({
         id: { type: DataTypes.UUID, defaultValue: DataTypes.UUIDV4, primaryKey: true, allowNull: false},
         title: { type: DataTypes.TEXT, allowNull: true, trim: true, defaultValue: null },

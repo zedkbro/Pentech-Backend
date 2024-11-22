@@ -13,7 +13,7 @@ import Candidate from './Candidate.js';
 import VotingSession from './VotingSession.js';
 import VoteJoined from './VoteJoined.js';
 
-ShareHolder.belongsTo(Admin, { foreignKey: 'userId', as: 'usedData' });
+ShareHolder.belongsTo(Admin, { foreignKey: 'userId', onDelete: 'CASCADE', as: 'usedData' });
 
 Admin.hasMany(Vote, { foreignKey: 'userId', as: 'voteData' });
 Vote.belongsTo(Admin, { foreignKey: 'userId', as: 'usedData' });
