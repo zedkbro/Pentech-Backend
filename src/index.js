@@ -7,7 +7,7 @@ async function startApp() {
   try {
     await sequelize.authenticate();
     console.log('MySQL Database Connected Successfully!');
-    await sequelize.sync();
+    // await sequelize.sync();
     const PORT = process.env.PORT || 3000;
     app.listen(PORT, () => {
       console.log(`Server is running on port ${PORT}`);
