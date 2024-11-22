@@ -9,7 +9,7 @@ class Candidate extends BaseModel {}
         sessionId: { type: DataTypes.UUID, references: { model: VotingSession, key: 'id' }, allowNull: false },
         title: { type: DataTypes.STRING, allowNull: false, trim: true },
         description: { type: DataTypes.STRING, allowNull: false, trim: true },
-        avatar: { type: DataTypes.STRING, allowNull: false, trim: true },
+        avatar: { type: DataTypes.STRING, allowNull: true, trim: true, defaultValue: null },
         status: { type: DataTypes.INTEGER, allowNull: true, trim: true, defaultValue: 0 },
         trash: { type: DataTypes.BOOLEAN, allowNull: false, trim: true, defaultValue: false }
     });

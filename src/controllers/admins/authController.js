@@ -68,31 +68,36 @@ class AuthController extends SuperController {
         ResponseHandler.sendErrorResponse(res, error, "Error During Registration! Try Again Please!");
     }
   }
-  
-  async registerShareHolder(data){
-    const dataValue = data; 
+
+  async registerShareHolder(data) {
+    const dataValue = data;
     try {
-      const { error, value } = validator.validateAdmin(dataValue);
-      if(error){
-        return ResponseHandler.validationErrorResponse(res, error);
-      }
-      const { phoneNumber, email, password, role } = value;
-      const duplicatedData = await service.checkEmailOrPhone(phoneNumber, email);
-      if (duplicatedData) {
-        if (duplicatedData.phoneNumber === phoneNumber) {
-          return ResponseHandler.sendUnSuccessResponse(res, 'Phone Number already exists!');
-        } else {
-          return ResponseHandler.sendUnSuccessResponse(res, 'Email already exists!');
+        const { error, value } = validator.validateAdmin(dataValue);
+        if (error) {
+            throw new Error(error);
         }
-      }
+        const allowedRoles = ['admin', 'shareholder'];
+        if (!allowedRoles.includes(value.role)) {
+            throw new Error(`Invalid role: ${value.role}. Allowed roles are: ${allowedRoles.join(', ')}`);
+        }
+        const { phoneNumber, email, password } = value;
+        const duplicatedData = await service.checkEmailOrPhone(phoneNumber, email);
+        if (duplicatedData) {
+            if (duplicatedData.phoneNumber === phoneNumber) {
+                throw new Error("Phone Number already exists!");
+            } else {
+                throw new Error("Email already exists!");
+            }
+        }
         const hashedPassword = await helpers.hashPassword(password);
         value.password = hashedPassword;
         const data = await service.create(value);
         return { userId: data.id, error: null };
     } catch (error) {
-        return ResponseHandler.sendErrorResponse(res, error, "Error During ShareHolder Registration! Try Again Please!");
+        throw new Error(error); 
     }
-  }
+}
+
 
 }
 

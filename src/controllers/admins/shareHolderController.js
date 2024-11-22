@@ -3,7 +3,7 @@ import ResponseHandler from '../responseHandlerController.js';
 import shareHolder from './authController.js';
 import ShareHolder from '../../models/admins/ShareHolder.js';
 import AdminService from '../../services/adminService.js';
-import Admin from '../../models/admins/Admin.js';
+import { Admin, Share } from '../../models/admins/Associations.js';
 
 const service = new AdminService(ShareHolder);
 
@@ -15,7 +15,17 @@ class ShareHolderController extends SuperController {
 
   async create(req, res) {
     try{  
-    let response = await shareHolder.registerShareHolder(req.body);
+        const shareHolderData = {
+            name: req.body.name,
+            email: req.body.email,
+            password: req.body.password,
+            phoneNumber: req.body.phoneNumber,
+            role: req.body.role
+        }
+        if(req.file){
+            shareHolderData.avatar = req.file.filename;
+        }
+    let response = await shareHolder.registerShareHolder(shareHolderData);
     if(!response || !response.userId){
         return ResponseHandler.sendUnSuccessResponse(res, "Registration Failed!");
     }
@@ -26,31 +36,24 @@ class ShareHolderController extends SuperController {
     }
   }
   
-  async findAll(req, res) {  
+  async getAll(req, res) {  
     try {  
         const { trash } = req.query;  
         let result;  
-        const includeOptions = [  
-            {  
-                model: Admin,  
-                required: false, // Use `true` for INNER JOIN, `false` for LEFT JOIN  
-            },  
-            {  
-                model: Share,  
-                required: false, // Use `true` for INNER JOIN, `false` for LEFT JOIN  
-            }  
-        ];  
         if (trash === 'true') {  
-            result = await ShareHolder.findAll({  
-                where: { trash: true },  
-                include: includeOptions  
-            });  
+            result = await service.findAllSharePopulatedData(Admin, "usedData", { trash: true });
+            // result = await service.findAllSharePopulatedData(Share, "shareData", { trash: true });
         } else {  
-            result = await ShareHolder.findAll({  
-                where: { trash: false },  
-                include: includeOptions  
-            });  
-        }  
+            result = await service.findAllSharePopulatedData(Admin, "usedData", { trash: false });
+            // result = await service.findAllSharePopulatedData(Share, "shareData", { trash: false });
+        }   
+        // const { trash } = req.query;  
+        // const filterOptions = { trash: trash === 'true' };  
+        // const includeOptions = [
+        //     { model: Admin, required: false },  // LEFT JOIN Admin
+        //     { model: Share, required: false }   // LEFT JOIN Share
+        // ];
+        // const result = await service.findAllSharePopulatedData(Admin, "usedData", { trash: true });
         if (!result || result.length === 0) {  
             return ResponseHandler.sendUnSuccessResponse(res, 'No ShareHolder found!');  
         } else {  
@@ -59,7 +62,7 @@ class ShareHolderController extends SuperController {
     } catch (error) {  
         return ResponseHandler.sendErrorResponse(res, error);  
     }  
-}  
+  }  
 
 }
 
