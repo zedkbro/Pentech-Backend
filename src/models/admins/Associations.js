@@ -19,7 +19,7 @@ Admin.hasMany(Vote, { foreignKey: 'userId', as: 'voteData' });
 Vote.belongsTo(Admin, { foreignKey: 'userId', as: 'usedData' });
 
 Share.hasMany(ShareHolder, { foreignKey: 'shareId', as: 'shareholder' });
-ShareHolder.belongsTo(Share, { foreignKey: 'shareId', as: 'shareSize' });
+ShareHolder.belongsTo(Share, { foreignKey: 'shareId', as: 'shareData' });
 
 Vote.hasMany(VoteResult, { foreignKey: 'voteId', as: 'voteResult' });
 VoteResult.belongsTo(Vote, { foreignKey: 'voteId', as: 'voteData' });
