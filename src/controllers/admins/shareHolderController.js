@@ -1,9 +1,9 @@
 import SuperController from '../superController.js';
 import ResponseHandler from '../responseHandlerController.js';
 import shareHolder from './authController.js';
-import ShareHolder from '../../models/admins/ShareHolder.js';
+// import ShareHolder from '../../models/admins/ShareHolder.js';
 import AdminService from '../../services/adminService.js';
-import { Admin, Share } from '../../models/admins/Associations.js';
+import { Admin, ShareHolder, Share } from '../../models/admins/Associations.js';
 
 const service = new AdminService(ShareHolder);
 
@@ -43,7 +43,7 @@ class ShareHolderController extends SuperController {
             const includeOptions = [  
                 {  
                     model: Admin,  
-                    as: 'usedData',  
+                    as: 'userData',  
                     required: false,  // LEFT JOIN  
                     where: { trash: filterOptions.trash } 
                 },  
@@ -64,7 +64,27 @@ class ShareHolderController extends SuperController {
             return ResponseHandler.sendErrorResponse(res, error);  
         }  
     }
+    
+    async deleteById(req, res) {
+        try {
+          const { id } = req.params;
+          const shareHolder = await ShareHolder.findOne({ where: { id } });
+          if (!shareHolder) {
+            return ResponseHandler.sendUnSuccessResponse(res, 'ShareHolder not found');
+          }
+          const adminId = shareHolder.userId;
+          await shareHolder.destroy();
+          if (adminId) {
+            await Admin.destroy({ where: { id: adminId } });
+          }
+          ResponseHandler.sendSuccessResponse(res, null, "Data Deleted Successfully");
+        } catch (error) {
+          ResponseHandler.sendErrorResponse(res, error);
+        }
+      }
 
-}
+
+    }      
+
 
 export default new ShareHolderController(service);
