@@ -68,35 +68,6 @@ class AuthController extends SuperController {
         ResponseHandler.sendErrorResponse(res, error, "Error During Registration! Try Again Please!");
     }
   }
-  
-  // async registerShareHolder(data){
-  //   const dataValue = data; 
-  //   try {
-  //     const { error, value } = validator.validateAdmin(dataValue);
-  //     if(error){
-  //       throw new Error(error)
-  //       // return ResponseHandler.validationErrorResponse(res, error);
-  //     }
-  //     const { phoneNumber, email, password } = value;
-  //     const duplicatedData = await service.checkEmailOrPhone(phoneNumber, email);
-  //     if (duplicatedData) {
-  //       if (duplicatedData.phoneNumber === phoneNumber) {
-  //       throw new Error("Phone Number already exists!");
-  //       // return ResponseHandler.sendUnSuccessResponse(res, 'Phone Number already exists!');
-  //       } else {
-  //       throw new Error("Email already exists!")
-  //         // return ResponseHandler.sendUnSuccessResponse(res, 'Email already exists!');
-  //       }
-  //     }
-  //       const hashedPassword = await helpers.hashPassword(password);
-  //       value.password = hashedPassword;
-  //       const data = await service.create(value);
-  //       return { userId: data.id, error: null };
-  //   } catch (error) {
-  //       throw new Error(error)
-  //       // return ResponseHandler.sendErrorResponse(res, error, "Error During ShareHolder Registration! Try Again Please!");
-  //   }
-  // }
 
   async registerShareHolder(data) {
     const dataValue = data;
@@ -105,7 +76,6 @@ class AuthController extends SuperController {
         if (error) {
             throw new Error(error);
         }
-        // Validate role
         const allowedRoles = ['admin', 'shareholder'];
         if (!allowedRoles.includes(value.role)) {
             throw new Error(`Invalid role: ${value.role}. Allowed roles are: ${allowedRoles.join(', ')}`);
@@ -124,7 +94,7 @@ class AuthController extends SuperController {
         const data = await service.create(value);
         return { userId: data.id, error: null };
     } catch (error) {
-        throw new Error(error); // Log or handle the error appropriately
+        throw new Error(error); 
     }
 }
 
