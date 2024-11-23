@@ -1,7 +1,7 @@
 import SuperController from '../superController.js';
 import ResponseHandler from '../responseHandlerController.js';
 import validator from '../../validators/adminValidator.js';
-import PrintingPackaging from '../../models/admins/PrintingPackaging.js';
+import { PrintingPackaging, Sector } from '../../models/admins/Associations.js';
 import AdminService from '../../services/adminService.js';
 
 const service = new AdminService(PrintingPackaging);
@@ -24,6 +24,27 @@ class PrintingPackagingController extends SuperController {
 //       ResponseHandler.sendErrorResponse(res, error);
 //     }
 //   }
+
+  async getAll(req, res) {
+    try {
+      const { trash } = req.query;
+      let result;
+      if (trash === 'true') {
+        result = await service.findAllValuePopulatedData(Sector, "sectorData", { trash: true });
+      } else {
+        result = await service.findAllValuePopulatedData(Sector, "sectorData", { trash: false });
+      }
+    if (!result) {
+        return ResponseHandler.sendUnSuccessResponse(res, 'No data found.');
+    } else {
+        return ResponseHandler.sendSuccessResponse(res, result);
+    }
+    } catch (error) {
+    ResponseHandler.sendErrorResponse(res, error);
+    }
+  }
+  
+
   
 
 }
