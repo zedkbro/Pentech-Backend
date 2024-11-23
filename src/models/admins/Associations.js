@@ -25,8 +25,11 @@ ShareHolder.belongsTo(Share, { foreignKey: 'shareId', as: 'shareData' });
 Vote.hasMany(VoteResult, { foreignKey: 'voteId', as: 'voteResult' });
 VoteResult.belongsTo(Vote, { foreignKey: 'voteId', as: 'voteData' });
 
-Vote.hasMany(ShareHolder, { foreignKey: 'shareHolderId', as: 'shareholder' });
+Vote.hasMany(ShareHolder, { foreignKey: 'shareHolderId', as: 'shareholderData' });
 ShareHolder.belongsTo(Vote, { foreignKey: 'shareHolderId', as: 'voteData' });
+
+Vote.hasMany(Candidate, { foreignKey: 'candidateId', as: 'candidateData' });
+Candidate.belongsTo(Vote, { foreignKey: 'candidateId', as: 'voteData' });
 
 ShareHolder.hasMany(VoteJoined, { foreignKey: 'shareHolderId', as: 'voteJoined' });
 VoteJoined.belongsTo(ShareHolder, { foreignKey: 'shareHolderId', as: 'shareHolderData' });
