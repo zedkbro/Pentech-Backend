@@ -1,5 +1,6 @@
 import SuperController from '../superController.js';
 import ResponseHandler from '../responseHandlerController.js';
+import validator from '../../validators/adminValidator.js';
 import { deleteFile } from '../../utils/unlinkFiles.js';
 import CodeOfConduct from '../../models/admins/CodeOfConduct.js';
 import AdminService from '../../services/adminService.js';
@@ -17,6 +18,11 @@ class CodeOfConductController extends SuperController {
     
     const fileField = "file"; 
     try{
+      const { error, value } = validator.validateCodeOfConduct(req.body);
+      if(error){
+        return ResponseHandler.validationErrorResponse( res, error );
+      }
+      req.body = value;
       if (req.file && fileField) {
           const uploadedFile = req.file;
           req.body[fileField] = uploadedFile.filename;

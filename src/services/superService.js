@@ -24,6 +24,12 @@ class SuperService {
   async findAllPopulatedData(model, path) {
     return await this.model.findAll({ include: { model, as: path }});
   }
+  
+  async findAllValuePopulatedData(model, path, condition) {
+    return await this.model.findAll({ 
+      where: condition, 
+      include: [{ model, as: path }]});
+  }
 
   async findPopulatedDataWithID(id, otherModel, path) {
     return await this.model.findByPk(id, { include: { model: otherModel, as: path }});

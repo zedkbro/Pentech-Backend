@@ -11,4 +11,6 @@ class VotingRightController extends SuperController {
   }
 
 }
+
+
 export default new VotingRightController(service);

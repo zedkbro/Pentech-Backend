@@ -373,6 +373,241 @@ const validateStatistics = (statistics) => {
   return StatisticsSchema.validate(statistics, { abortEarly: false });
 };
 
+
+const sectorSchema = Joi.object({
+  name: Joi.string().trim().required().messages({
+      'any.required': 'Name is required',
+      'string.empty': 'Name cannot be empty'
+  }),
+  description: Joi.string().trim().required().messages({
+      'any.required': 'Description is required',
+      'string.empty': 'Description cannot be empty'
+  })
+}).unknown(true);
+
+const validateSector = (sector) => {
+  return sectorSchema.validate(sector, { abortEarly: false });
+};
+
+const shareSchema = Joi.object({
+  shareValue: Joi.string().trim().required().messages({
+    'any.required': 'Share value is required',
+    'string.empty': 'Share value cannot be empty'
+  }),
+  description: Joi.string().allow(null).optional(),
+}).unknown(true);
+
+const validateShare = (share) => {
+  return shareSchema.validate(share, { abortEarly: false });
+};
+
+const shareHolderSchema = Joi.object({
+  userId: Joi.string().uuid().required().messages({
+      'any.required': 'User ID is required',
+      'string.empty': 'User ID cannot be empty'
+  }),
+  shareId: Joi.string().uuid().required().messages({
+      'any.required': 'Share ID is required',
+      'string.empty': 'Share ID cannot be empty'
+  }),
+  entityType: Joi.string().trim().required().messages({
+      'any.required': 'Entity type is required',
+      'string.empty': 'Entity type cannot be empty'
+  }),
+  nationality: Joi.string().trim().required().messages({
+      'any.required': 'Nationality is required',
+      'string.empty': 'Nationality cannot be empty'
+  }),
+  city: Joi.string().trim().required().messages({
+      'any.required': 'City is required',
+      'string.empty': 'City cannot be empty'
+  }),
+  country: Joi.string().trim().required().messages({
+      'any.required': 'Country is required',
+      'string.empty': 'Country cannot be empty'
+  }),
+  totalShares: Joi.number().integer().min(1).required().messages({
+      'any.required': 'Total shares are required',
+      'number.base': 'Total shares must be a number',
+      'number.integer': 'Total shares must be an integer',
+      'number.min': 'Total shares must be at least 1'
+  })
+}).unknown(true);
+
+const validateShareHolder = (shareHolder) => {
+  return shareHolderSchema.validate(shareHolder, { abortEarly: false });
+};
+
+const codeOfConductSchema = Joi.object({
+  title: Joi.string().trim().required().messages({
+      'any.required': 'Title is required',
+      'string.empty': 'Title cannot be empty'
+  }),
+  description: Joi.string().allow(null).optional(),
+  file: Joi.string().allow(null).optional()
+}).unknown(true);
+
+const validateCodeOfConduct = (codeOfConduct) => {
+  return codeOfConductSchema.validate(codeOfConduct, { abortEarly: false });
+};
+
+const educationBranchSchema = Joi.object({
+  sectorId: Joi.string().uuid().required().messages({
+      'any.required': 'Sector ID is required',
+      'string.empty': 'Sector ID cannot be empty'
+  }),
+  name: Joi.string().trim().required().messages({
+    'any.required': 'Name is required',
+    'string.empty': 'Name cannot be empty'
+}),
+}).unknown(true);
+
+const validateEducationBranch = (educationBranch) => {
+  return educationBranchSchema.validate(educationBranch, { abortEarly: false });
+};
+
+const educationProgramSchema = Joi.object({
+  branchId: Joi.string().uuid().required().messages({
+      'any.required': 'Branch ID is required',
+      'string.empty': 'Branch ID cannot be empty'
+  }),
+  programName: Joi.string().trim().required().messages({
+      'any.required': 'Program name is required',
+      'string.empty': 'Program name cannot be empty'
+  }),
+  admissionInfo: Joi.string().allow(null).optional(),
+  academicCalendar: Joi.string().allow(null).optional(),
+  news: Joi.string().allow(null).optional(),
+}).unknown(true);
+
+const validateEducationProgram = (educationProgram) => {
+    return educationProgramSchema.validate(educationProgram, { abortEarly: false });
+};
+
+const financialPerformanceSchema = Joi.object({
+  reportYear: Joi.date().allow(null).optional().messages({
+      'date.base': 'Report year must be a valid date'
+  }),
+  reportType: Joi.string().valid('Annual', 'Quarterly').required().messages({
+      'any.required': 'Report type is required',
+      'string.empty': 'Report type cannot be empty',
+      'any.only': 'Report type must be either "Annual" or "Quarterly"'
+  }),
+  description: Joi.string().trim().required().messages({
+      'any.required': 'Description is required',
+      'string.empty': 'Description cannot be empty'
+  }),
+  document: Joi.string().allow(null).optional(),
+}).unknown(true);
+
+const validateFinancialPerformance = (financialPerformance) => {
+  return financialPerformanceSchema.validate(financialPerformance, { abortEarly: false });
+};
+
+
+const ictServiceSchema = Joi.object({
+    sectorId: Joi.string().uuid().required().messages({
+        'any.required': 'Sector ID is required',
+        'string.empty': 'Sector ID cannot be empty'
+    }),
+    serviceDescription: Joi.string().trim().required().messages({
+        'any.required': 'Service description is required',
+        'string.empty': 'Service description cannot be empty'
+    }),
+    technologyDevelopment: Joi.string().trim().required().messages({
+        'any.required': 'Technology development is required',
+        'string.empty': 'Technology development cannot be empty'
+    }),
+    softwareSolutions: Joi.string().trim().required().messages({
+        'any.required': 'Software solutions are required',
+        'string.empty': 'Software solutions cannot be empty'
+    }),
+    partnerships: Joi.string().trim().required().messages({
+        'any.required': 'Partnerships are required',
+        'string.empty': 'Partnerships cannot be empty'
+    })
+}).unknown(true);
+
+const validateICTService = (ictService) => {
+    return ictServiceSchema.validate(ictService, { abortEarly: false });
+};
+
+const investmentOpportunitySchema = Joi.object({
+  opportunityTitle: Joi.string().allow(null).optional(),
+  description: Joi.string().trim().required().messages({
+      'any.required': 'Description is required',
+      'string.empty': 'Description cannot be empty'
+  }),
+  sharesAvailable: Joi.number().integer().min(1).required().messages({
+      'any.required': 'Shares available are required',
+      'number.base': 'Shares available must be a number',
+      'number.integer': 'Shares available must be an integer',
+      'number.min': 'Shares available must be at least 1'
+  }),
+  offeringDate: Joi.date().allow(null).optional().messages({
+      'date.base': 'Offering date must be a valid date'
+  })
+}).unknown(true);
+
+const validateInvestmentOpportunity = (investmentOpportunity) => {
+  return investmentOpportunitySchema.validate(investmentOpportunity, { abortEarly: false });
+};
+
+const investorFaqsSchema = Joi.object({
+  question: Joi.string().trim().required().messages({
+      'any.required': 'Question is required',
+      'string.empty': 'Question cannot be empty'
+  }),
+  answer: Joi.string().trim().required().messages({
+      'any.required': 'Answer is required',
+      'string.empty': 'Answer cannot be empty'
+  })
+}).unknown(true);
+
+const validateInvestorFaqs = (investorFaqs) => {
+  return investorFaqsSchema.validate(investorFaqs, { abortEarly: false });
+};
+
+const microfinanceServiceSchema = Joi.object({
+  sectorId: Joi.string().uuid().required().messages({
+      'any.required': 'Sector ID is required',
+      'string.empty': 'Sector ID cannot be empty'
+  }),
+  loanProducts: Joi.string().trim().required().messages({
+      'any.required': 'Loan products are required',
+      'string.empty': 'Loan products cannot be empty'
+  }),
+  eligiblityCriteria: Joi.string().trim().required().messages({
+      'any.required': 'Eligibility criteria are required',
+      'string.empty': 'Eligibility criteria cannot be empty'
+  }),
+  applicationProcedures: Joi.string().trim().required().messages({
+      'any.required': 'Application procedures are required',
+      'string.empty': 'Application procedures cannot be empty'
+  })
+}).unknown(true);
+
+const validateMicrofinanceService = (microfinanceService) => {
+  return microfinanceServiceSchema.validate(microfinanceService, { abortEarly: false });
+};
+
+const voteSchema = Joi.object({
+  shareHolderId: Joi.string().uuid().required().messages({
+      'any.required': 'Shareholder ID is required',
+      'string.empty': 'Shareholder ID cannot be empty'
+  }),
+  candidateId: Joi.string().uuid().required().messages({
+      'any.required': 'Candidate ID is required',
+      'string.empty': 'Candidate ID cannot be empty'
+  })
+}).unknown(true);
+
+const validateVote = (vote) => {
+  return voteSchema.validate(vote, { abortEarly: false });
+};
+
+
+
 export default {
   validateLogin,
   validateAdmin,
@@ -390,5 +625,8 @@ export default {
   validatePrivacyPolicy,
   validateLoanCalculator,
   validateTermsAndConditions,
-  validateStatistics,
+  validateStatistics, validateSector, validateShare, validateShareHolder,
+  validateCodeOfConduct, validateEducationBranch, validateEducationProgram,
+  validateFinancialPerformance, validateICTService, validateInvestmentOpportunity,
+  validateInvestorFaqs, validateMicrofinanceService, validateVote
 };
