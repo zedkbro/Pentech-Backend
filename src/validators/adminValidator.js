@@ -591,6 +591,20 @@ const validateMicrofinanceService = (microfinanceService) => {
   return microfinanceServiceSchema.validate(microfinanceService, { abortEarly: false });
 };
 
+const voteSchema = Joi.object({
+  shareHolderId: Joi.string().uuid().required().messages({
+      'any.required': 'Shareholder ID is required',
+      'string.empty': 'Shareholder ID cannot be empty'
+  }),
+  candidateId: Joi.string().uuid().required().messages({
+      'any.required': 'Candidate ID is required',
+      'string.empty': 'Candidate ID cannot be empty'
+  })
+}).unknown(true);
+
+const validateVote = (vote) => {
+  return voteSchema.validate(vote, { abortEarly: false });
+};
 
 
 
@@ -614,5 +628,5 @@ export default {
   validateStatistics, validateSector, validateShare, validateShareHolder,
   validateCodeOfConduct, validateEducationBranch, validateEducationProgram,
   validateFinancialPerformance, validateICTService, validateInvestmentOpportunity,
-  validateInvestorFaqs, validateMicrofinanceService
+  validateInvestorFaqs, validateMicrofinanceService, validateVote
 };
