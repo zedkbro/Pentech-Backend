@@ -373,6 +373,85 @@ const validateStatistics = (statistics) => {
   return StatisticsSchema.validate(statistics, { abortEarly: false });
 };
 
+
+const sectorSchema = Joi.object({
+  name: Joi.string().trim().required().messages({
+      'any.required': 'Name is required',
+      'string.empty': 'Name cannot be empty'
+  }),
+  description: Joi.string().trim().required().messages({
+      'any.required': 'Description is required',
+      'string.empty': 'Description cannot be empty'
+  })
+}).unknown(true);
+
+const validateSector = (sector) => {
+  return sectorSchema.validate(sector, { abortEarly: false });
+};
+
+const shareSchema = Joi.object({
+  shareValue: Joi.string().trim().required().messages({
+    'any.required': 'Share value is required',
+    'string.empty': 'Share value cannot be empty'
+  }),
+  description: Joi.string().allow(null).optional(),
+}).unknown(true);
+
+const validateShare = (share) => {
+  return shareSchema.validate(share, { abortEarly: false });
+};
+
+const shareHolderSchema = Joi.object({
+  userId: Joi.string().uuid().required().messages({
+      'any.required': 'User ID is required',
+      'string.empty': 'User ID cannot be empty'
+  }),
+  shareId: Joi.string().uuid().required().messages({
+      'any.required': 'Share ID is required',
+      'string.empty': 'Share ID cannot be empty'
+  }),
+  entityType: Joi.string().trim().required().messages({
+      'any.required': 'Entity type is required',
+      'string.empty': 'Entity type cannot be empty'
+  }),
+  nationality: Joi.string().trim().required().messages({
+      'any.required': 'Nationality is required',
+      'string.empty': 'Nationality cannot be empty'
+  }),
+  city: Joi.string().trim().required().messages({
+      'any.required': 'City is required',
+      'string.empty': 'City cannot be empty'
+  }),
+  country: Joi.string().trim().required().messages({
+      'any.required': 'Country is required',
+      'string.empty': 'Country cannot be empty'
+  }),
+  totalShares: Joi.number().integer().min(1).required().messages({
+      'any.required': 'Total shares are required',
+      'number.base': 'Total shares must be a number',
+      'number.integer': 'Total shares must be an integer',
+      'number.min': 'Total shares must be at least 1'
+  })
+}).unknown(true);
+
+const validateShareHolder = (shareHolder) => {
+  return shareHolderSchema.validate(shareHolder, { abortEarly: false });
+};
+
+const codeOfConductSchema = Joi.object({
+  title: Joi.string().trim().required().messages({
+      'any.required': 'Title is required',
+      'string.empty': 'Title cannot be empty'
+  }),
+  description: Joi.string().allow(null).optional(),
+  file: Joi.string().allow(null).optional()
+}).unknown(true);
+
+const validateCodeOfConduct = (codeOfConduct) => {
+  return codeOfConductSchema.validate(codeOfConduct, { abortEarly: false });
+};
+
+
 export default {
   validateLogin,
   validateAdmin,
@@ -390,5 +469,6 @@ export default {
   validatePrivacyPolicy,
   validateLoanCalculator,
   validateTermsAndConditions,
-  validateStatistics,
+  validateStatistics, validateSector, validateShare, validateShareHolder,
+  validateCodeOfConduct
 };
