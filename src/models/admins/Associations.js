@@ -43,8 +43,8 @@ Candidate.belongsTo(VotingSession, { foreignKey: 'sessionId', as: 'sessionData' 
 Sector.hasMany(EducationBranch, { foreignKey: 'sectorId', as: 'sectorEducation' });
 EducationBranch.belongsTo(Sector, { foreignKey: 'sectorId', as: 'sectorData' });
 
-EducationBranch.hasMany(EducationProgram, { foreignKey: 'branchId', as: 'branchProgramData' });
-EducationProgram.belongsTo(EducationBranch, { foreignKey: 'branchId', as: 'programBranchData' });
+EducationBranch.hasMany(EducationProgram, { foreignKey: 'branchId', as: 'educationProgramData' });
+EducationProgram.belongsTo(EducationBranch, { foreignKey: 'branchId', as: 'educationBranchData' });
 
 Sector.hasMany(ICTService, { foreignKey: 'sectorId', as: 'sectorService' });
 ICTService.belongsTo(Sector, { foreignKey: 'sectorId', as: 'sectorData' });

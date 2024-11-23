@@ -30,9 +30,9 @@ class EducationProgramController extends SuperController {
       const { trash } = req.query;
       let result;
       if (trash === 'true') {
-        result = await service.findAllValuePopulatedData(EducationBranch, "sectorData", { trash: true });
+        result = await service.findAllValuePopulatedData(EducationBranch, "educationBranchData", { trash: true });
       } else {
-        result = await service.findAllValuePopulatedData(EducationBranch, "sectorData", { trash: false });
+        result = await service.findAllValuePopulatedData(EducationBranch, "educationBranchData", { trash: false });
       }
     if (!result) {
         return ResponseHandler.sendUnSuccessResponse(res, 'No data found.');
