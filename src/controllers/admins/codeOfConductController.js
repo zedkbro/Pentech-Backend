@@ -13,6 +13,8 @@ class CodeOfConductController extends SuperController {
   }
 
   async create(req, res) {
+    // console.log(req.do);
+    
     const fileField = "file"; 
     try{
       if (req.file && fileField) {

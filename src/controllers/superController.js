@@ -27,6 +27,8 @@ class SuperController {
             result = await this.service.findAll({ trash: true });
           } else {
             result = await this.service.findAll({ trash: false });
+            console.log(result);
+            
           }
         if (!result) {
             return ResponseHandler.sendUnSuccessResponse(res, 'No data found.');

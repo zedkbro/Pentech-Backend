@@ -632,6 +632,7 @@ router.patch(
   voteResult.backupFromTrash.bind(voteResult)
 );
 
+router.get("/code-of-conducts", codeOfConduct.getAll.bind(codeOfConduct));
 router.post("/code-of-conducts", codeOfConduct.create.bind(codeOfConduct));
 router
   .route("/code-of-conducts/:id")
