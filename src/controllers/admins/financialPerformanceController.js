@@ -15,11 +15,11 @@ class FinancialPerformanceController extends SuperController {
   create(req, res) {
     const fileField = "document"; 
     try{
-    //   const { error, value } = validator.validateBlogs(req.body);
-    //   if(error){
-    //     return ResponseHandler.validationErrorResponse( res, error );
-    //   }
-    //   req.body = value;
+      const { error, value } = validator.validateFinancialPerformance(req.body);
+      if(error){
+        return ResponseHandler.validationErrorResponse( res, error );
+      }
+      req.body = value;
       if (req.file && fileField) {
           const uploadedFile = req.file;
           req.body[fileField] = uploadedFile.filename;

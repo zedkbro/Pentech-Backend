@@ -12,18 +12,18 @@ class EducationProgramController extends SuperController {
     this.service = service;
   }
 
-//   create(req, res) {
-//     try{
-//       const { error, value } = validator.validateBlogs(req.body);
-//       if(error){
-//         return ResponseHandler.validationErrorResponse( res, error );
-//       }
-//       req.body = value;
-//       return super.create(req, res);
-//     } catch (error) {
-//       ResponseHandler.sendErrorResponse(res, error);
-//     }
-//   }
+  create(req, res) {
+    try{
+      const { error, value } = validator.validateEducationProgram(req.body);
+      if(error){
+        return ResponseHandler.validationErrorResponse( res, error );
+      }
+      req.body = value;
+      return super.create(req, res);
+    } catch (error) {
+      ResponseHandler.sendErrorResponse(res, error);
+    }
+  }
 
   async getAll(req, res) {
     try {
