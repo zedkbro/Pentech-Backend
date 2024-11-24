@@ -9,7 +9,7 @@ class SubService extends BaseModel {}
         subServiceTitle: { type: DataTypes.TEXT, allowNull: false },
         subServiceDescription: { type: DataTypes.TEXT, allowNull: false },
         subServiceImage: { type: DataTypes.STRING, allowNull: true, defaultValue: null },
-        serviceId: { type: DataTypes.UUID, allowNull: false },
+        sectorId: { type: DataTypes.UUID, allowNull: false },
         trash: { type: DataTypes.BOOLEAN, allowNull: false, trim: true, defaultValue: false }
     }); 
     // SubService.belongsTo(Service, {
