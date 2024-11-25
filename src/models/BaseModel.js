@@ -1,5 +1,5 @@
-import { Model } from 'sequelize';
-import sequelize from '../config/database.js'; 
+import { Model } from "sequelize";
+import sequelize from "../config/database.js";
 
 class BaseModel extends Model {
   static init(schema) {
@@ -7,7 +7,7 @@ class BaseModel extends Model {
     return super.init(schema, {
       sequelize,
       modelName,
-      timestamps: true
+      timestamps: true,
     });
   }
 }

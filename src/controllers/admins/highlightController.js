@@ -1,13 +1,13 @@
 import SuperController from "../superController.js";
 import ResponseHandler from "../responseHandlerController.js";
+import validator from "../../validators/adminValidator.js";
 import { deleteImage } from "../../utils/unlinkImages.js";
-import validator from "../../validators/userValidator.js";
-import AboutUs from "../../models/users/AboutUs.js";
-import UserService from "../../services/userService.js";
+import Highlight from "../../models/admins/Highlight.js";
+import AdminService from "../../services/adminService.js";
 
-const service = new UserService(AboutUs);
+const service = new AdminService(Highlight);
 
-class AboutUsController extends SuperController {
+class HighlightController extends SuperController {
   constructor(service) {
     super(service);
     this.service = service;
@@ -16,7 +16,7 @@ class AboutUsController extends SuperController {
   create(req, res) {
     const imageField = "image";
     try {
-      const { error, value } = validator.validateAboutUs(req.body);
+      const { error, value } = validator.validateHighlight(req.body);
       if (error) {
         return ResponseHandler.validationErrorResponse(res, error);
       }
@@ -32,7 +32,7 @@ class AboutUsController extends SuperController {
   }
 
   async updateById(req, res) {
-    const imageField = "image";
+    const imageField = "avatar";
     try {
       if (req.file && imageField) {
         const uploadedFile = req.file;
@@ -42,14 +42,14 @@ class AboutUsController extends SuperController {
           await deleteImage(existingData[imageField]);
         }
       }
-
       return super.updateById(req, res);
     } catch (error) {
       ResponseHandler.sendErrorResponse(res, error);
     }
   }
+
   async deleteById(req, res) {
-    const imageField = "image";
+    const imageField = "avatar";
     try {
       const existingData = await service.findById(req.params.id);
       if (existingData && existingData[imageField]) {
@@ -62,4 +62,4 @@ class AboutUsController extends SuperController {
   }
 }
 
-export default new AboutUsController(service);
+export default new HighlightController(service);

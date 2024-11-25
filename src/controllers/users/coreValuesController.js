@@ -2,12 +2,12 @@ import SuperController from "../superController.js";
 import ResponseHandler from "../responseHandlerController.js";
 import { deleteImage } from "../../utils/unlinkImages.js";
 import validator from "../../validators/userValidator.js";
-import AboutUs from "../../models/users/AboutUs.js";
+import CoreValues from "../../models/users/CoreValues.js";
 import UserService from "../../services/userService.js";
 
-const service = new UserService(AboutUs);
+const service = new UserService(CoreValues);
 
-class AboutUsController extends SuperController {
+class CoreValue extends SuperController {
   constructor(service) {
     super(service);
     this.service = service;
@@ -16,7 +16,7 @@ class AboutUsController extends SuperController {
   create(req, res) {
     const imageField = "image";
     try {
-      const { error, value } = validator.validateAboutUs(req.body);
+      const { error, value } = validator.validateCoreValues(req.body);
       if (error) {
         return ResponseHandler.validationErrorResponse(res, error);
       }
@@ -62,4 +62,4 @@ class AboutUsController extends SuperController {
   }
 }
 
-export default new AboutUsController(service);
+export default new CoreValue(service);

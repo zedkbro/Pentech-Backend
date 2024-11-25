@@ -1,9 +1,9 @@
 import BaseModel from "../BaseModel.js";
 import { DataTypes } from "sequelize";
 
-class CodeOfConduct extends BaseModel {}
+class Highlight extends BaseModel {}
 
-CodeOfConduct.init({
+Highlight.init({
   id: {
     type: DataTypes.UUID,
     defaultValue: DataTypes.UUIDV4,
@@ -11,13 +11,13 @@ CodeOfConduct.init({
     allowNull: false,
   },
   title: { type: DataTypes.TEXT, allowNull: false, trim: true },
-  description: {
-    type: DataTypes.TEXT,
+  description: { type: DataTypes.TEXT, allowNull: false, trim: true },
+  image: {
+    type: DataTypes.STRING,
     allowNull: true,
     trim: true,
     defaultValue: null,
   },
-  // file: { type: DataTypes.STRING, allowNull: true, defaultValue: null },
   trash: {
     type: DataTypes.BOOLEAN,
     allowNull: false,
@@ -26,4 +26,4 @@ CodeOfConduct.init({
   },
 });
 
-export default CodeOfConduct;
+export default Highlight;

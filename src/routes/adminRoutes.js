@@ -7,6 +7,7 @@ import service from "../controllers/admins/serviceController.js";
 import subService from "../controllers/admins/subServiceController.js";
 import product from "../controllers/admins/productController.js";
 import news from "../controllers/admins/newsController.js";
+import Highlight from "../controllers/admins/highlightController.js";
 import blog from "../controllers/admins/blogController.js";
 import career from "../controllers/admins/careerController.js";
 import testimonial from "../controllers/admins/testimonialController.js";
@@ -57,6 +58,8 @@ router
   .get("/services", service.findAll.bind(service))
   .get("/products", product.getAll.bind(product))
   .get("/news", news.getLatest.bind(news))
+  .get("/highlights", Highlight.getAll.bind(Highlight))
+
   .get("/blogs", blog.getLatest.bind(blog))
   .get("/careers", career.getAllOpenedVacancy.bind(career))
   .get("/careers/all", career.getAll.bind(career))
@@ -102,7 +105,7 @@ router
   .get("/votes", vote.getAll.bind(vote))
   .get("/voting-sessions", votingSession.getAll.bind(votingSession))
   .get("/vote-results", voteResult.getAll.bind(voteResult))
-  .get("/code-of-conducts", codeOfConduct.getAll.bind(codeOfConduct))
+  .get("/conducts", codeOfConduct.getAll.bind(codeOfConduct))
   .get("/vote-rights", voteRight.getAll.bind(voteRight))
   .get("/vote-joined", voteJoined.getAll.bind(voteJoined))
   .get("/candidates", candidate.getAll.bind(candidate));
@@ -192,6 +195,10 @@ router
   .delete(news.moveToTrash.bind(news));
 router.delete("/news/destroy/:id", news.deleteById.bind(news));
 router.patch("/news/backup/:id", news.backupFromTrash.bind(news));
+
+router
+  .route("/highlights")
+  .post(uploadImage.single("image"), Highlight.create.bind(Highlight));
 
 router
   .route("/blogs")
@@ -632,21 +639,21 @@ router.patch(
   voteResult.backupFromTrash.bind(voteResult)
 );
 
-router.get("/code-of-conducts", codeOfConduct.getAll.bind(codeOfConduct));
-router.post("/code-of-conducts", codeOfConduct.create.bind(codeOfConduct));
-router
-  .route("/code-of-conducts/:id")
-  .get(codeOfConduct.getById.bind(codeOfConduct))
-  .patch(codeOfConduct.updateById.bind(codeOfConduct))
-  .delete(codeOfConduct.moveToTrash.bind(codeOfConduct));
-router.delete(
-  "/code-of-conducts/destroy/:id",
-  codeOfConduct.deleteById.bind(codeOfConduct)
-);
-router.patch(
-  "/code-of-conducts/backup/:id",
-  codeOfConduct.backupFromTrash.bind(codeOfConduct)
-);
+// router.get("/code-of-conducts", codeOfConduct.getAll.bind(codeOfConduct));
+// router.post("/code-of-conducts", codeOfConduct.create.bind(codeOfConduct));
+// router
+//   .route("/code-of-conducts/:id")
+//   .get(codeOfConduct.getById.bind(codeOfConduct))
+//   .patch(codeOfConduct.updateById.bind(codeOfConduct))
+//   .delete(codeOfConduct.moveToTrash.bind(codeOfConduct));
+// router.delete(
+//   "/code-of-conducts/destroy/:id",
+//   codeOfConduct.deleteById.bind(codeOfConduct)
+// );
+// router.patch(
+//   "/code-of-conducts/backup/:id",
+//   codeOfConduct.backupFromTrash.bind(codeOfConduct)
+// );
 
 router.post("/vote-rights", voteRight.create.bind(voteRight));
 router
@@ -723,20 +730,20 @@ router.patch(
   voteResult.backupFromTrash.bind(voteResult)
 );
 
-router.post("/code-of-conducts", codeOfConduct.create.bind(codeOfConduct));
-router
-  .route("/code-of-conducts/:id")
-  .get(codeOfConduct.getById.bind(codeOfConduct))
-  .patch(codeOfConduct.updateById.bind(codeOfConduct))
-  .delete(codeOfConduct.moveToTrash.bind(codeOfConduct));
-router.delete(
-  "/code-of-conducts/destroy/:id",
-  codeOfConduct.deleteById.bind(codeOfConduct)
-);
-router.patch(
-  "/code-of-conducts/backup/:id",
-  codeOfConduct.backupFromTrash.bind(codeOfConduct)
-);
+router.post("/conducts", codeOfConduct.create.bind(codeOfConduct));
+// router
+//   .route("/code-of-conducts/:id")
+//   .get(codeOfConduct.getById.bind(codeOfConduct))
+//   .patch(codeOfConduct.updateById.bind(codeOfConduct))
+//   .delete(codeOfConduct.moveToTrash.bind(codeOfConduct));
+// router.delete(
+//   "/code-of-conducts/destroy/:id",
+//   codeOfConduct.deleteById.bind(codeOfConduct)
+// );
+// router.patch(
+//   "/code-of-conducts/backup/:id",
+//   codeOfConduct.backupFromTrash.bind(codeOfConduct)
+// );
 
 router.post("/vote-rights", voteRight.create.bind(voteRight));
 router
